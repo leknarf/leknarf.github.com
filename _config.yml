@@ -70,7 +70,7 @@ github_skip_forks: true
 #twitter_show_replies: false
 #twitter_follow_button: true
 #twitter_show_follower_count: false
-#twitter_tweet_button: true
+twitter_tweet_button: true
 
 # Google +1
 google_plus_one: true
@@ -98,3 +98,6 @@ google_analytics_tracking_id: UA-26433526-1
 
 # Facebook Like
 facebook_like: true
+
+# Hacker news like
+hn_like: true
