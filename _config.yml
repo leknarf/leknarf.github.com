@@ -4,10 +4,11 @@
 
 url: http://leknarf.net
 title: Leknarf
-subtitle: Startups, software, scuttlebutt
+subtitle: Unqualified advice about startups, software, and technology
 author: Andrew Frankel
 simple_search: http://google.com/search
 description:
+current_company_url: http://topshelfclothes.com
 
 # Default date format is "ordinal" (resulting in "July 22nd 2007")
 # You can customize the format as defined in
