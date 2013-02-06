@@ -30,6 +30,7 @@ SOFTWARE.
   <script type="text/javascript">
     (function(){
       var hn_like = document.createElement('iframe');
+      hn_like.setAttribute('seamless', '');
       hn_like.frameborder="no";
       hn_like.scrolling="no";
       hn_like.height="28px";
@@ -39,11 +40,11 @@ SOFTWARE.
                     + "&title="
                     + encodeURIComponent("{{ page.title }}");
       hn_like.innerHTML="iframes not supported by your browser";
-      var twitter = document.getElementsByClassName("twitter-share-button")[0];
+      var share = document.getElementsByClassName("addthis_toolbox")[0];
 
-      twitter.parentNode.insertBefore(
+      share.parentNode.insertBefore(
         hn_like,
-        twitter
+        share
       );
     })();
   </script>
