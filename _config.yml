@@ -7,7 +7,10 @@ title: Leknarf
 subtitle: Unsupported nonsense about startups and software
 author: Andrew Frankel
 simple_search: http://google.com/search
+
+# Custom fields
 current_company_url: http://topshelfclothes.com
+photo_width: 800px
 
 # Default date format is "ordinal" (resulting in "July 22nd 2007")
 # You can customize the format as defined in
