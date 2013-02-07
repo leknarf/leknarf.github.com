@@ -3,7 +3,10 @@
 
 
 .share{
-  iframe{
+  a iframe{
+    margin-top: 0px;
+  }
+  iframe.hn_like{
     margin-bottom: 10px;
   }
 }
