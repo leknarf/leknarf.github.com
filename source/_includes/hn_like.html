@@ -27,11 +27,14 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 -->
+  <span class='hn_like_label'> Join the discussion on hacker news:</span>
+  <span class='hn_like'>
   <script type="text/javascript">
     (function(){
       var hn_like = document.createElement('iframe');
       hn_like.setAttribute('seamless', '');
       hn_like.setAttribute('class', 'hn_like');
+      hn_like.setAttribute('style', 'display: inline;');
       hn_like.frameborder="no";
       hn_like.scrolling="no";
       hn_like.height="28px";
@@ -41,7 +44,7 @@ SOFTWARE.
                     + "&title="
                     + encodeURIComponent("{{ page.title }}");
       hn_like.innerHTML="iframes not supported by your browser";
-      var share = document.getElementsByClassName("addthis_toolbox")[0];
+      var share = document.getElementsByClassName("hn_like")[0];
 
       share.parentNode.insertBefore(
         hn_like,
