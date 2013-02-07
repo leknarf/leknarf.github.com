@@ -103,3 +103,6 @@ facebook_like: true
 
 # Hacker news like
 hn_like: true
+
+# Linkedin
+linkedin_user: andrewdathanfrankel
