@@ -1,23 +1,22 @@
 ---
 layout: post
 title: "A blog is a mini-startup"
-date: 2013-01-28 11:10
+date: 2013-02-09 14:00
 categories:
  - lean
  - mvp
  - customer development
 ---
 
-Like many blogs, this one will be an opportunity for me to spew baseless advice and hyperbole. Seeing how I have no previous blogging experience, I'm completely unqualified to discuss how to build a new blog, and therefore have no reservations about telling others exactly how they should proceed.
-
 Launching a new blog isn't dissimilar to launching a startup. In fact, the difficulties in launching a blog are effectively a sub-set of the key problems to solve when creating a startup. Specifically, building a new blog requires you to figure out the following questions:
 
-<!-- more -->
 
  - Who are your potential readers?
  - How will those readers find your blog?
  - Will those readers subscribe, share, comment, or otherwise engage with your content?
  - What do you expect from a "successful" blog?
+
+<!-- more -->
 
 If these questions sound familiar, that's because they are fundamental to the first two steps in Steve Blank's [The Four Steps to the Epiphany](http://www.amazon.com/gp/product/0976470705/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=0976470705&linkCode=as2&tag=leknarf-20"), namely "Customer Discovery" and "Customer Validation". Creating and marketing a blog is a great way to practice the customer development skills necessary for an early startup, without having to worry about the parallel challenge of product development.
 
@@ -35,7 +34,7 @@ Validation requires a little more thought. For a commercial startup, validation 
 
 In particular, some plausible motivations for blogging are to:
 
-  - Clearly articulate some musings: Thinking is easy; writing is hard. Ideas are tough to nail down. Something that sounds wonderful bouncing around in your head can look outright preposterous once it finds its way to paper. Writing things down and sharing them is a straightforward way to develop intellectual honesty. You can get some benefits from writing even without a readership, but ideally, you'll want to find thoughtful readers who are interested in discussing your ideas and challenging your assumptions. If you happen to build up a large pool of readers who never comment or engage with you, then you haven't found the right readers and should re-consider your discovery efforts.
+  - Articulate and develop your own thoughts: Thinking is easy; writing is hard. Ideas are tough to nail down. Something that sounds wonderful bouncing around in your head can look outright preposterous once it finds its way to paper. Writing things down and sharing them is a straightforward way to develop intellectual honesty. You can get some benefits from writing even without a readership, but ideally, you'll want to find thoughtful readers who are interested in discussing your ideas and challenging your assumptions. If you happen to build up a large pool of readers who never comment or engage with you, then you haven't found the right readers and should re-consider your discovery efforts.
   - Establish some bona fides. Perhaps you've been reading this blog and thought to yourself, "That chap seems to know what's up." Validation for this goal can be as simple as collecting points. Unlike the above, silent readers are okay for this goal, provided that they're willing to up vote your content on social media sites.
   - Direct some traffic to another project, such as my [current startup]({{site.current_company_url}}). This is starting to get more difficult, but is still pretty reasonable. Readers of this blog probably like startups, I've got one, so perhaps you'd like to take a look at mine? This thought process quickly breaks down if there isn't a straightforward connection between the blog's content and the project in question. A photo-blog of cat cartoons is odd marketing for an enterprise software company, but might work out if [done right](http://octodex.github.com/). The key metric here is simple: you want to review the conversation funnel for your other project and compare traffic from your blog with other traffic sources.
 
