@@ -2,26 +2,30 @@
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
         <loc>http://leknarf.net/blog/2013/02/09/a-blog-is-a-mini-startup/</loc>
-        <lastmod>2013-02-10T19:12:07-05:00</lastmod>
+        <lastmod>2013-02-19T09:02:44-05:00</lastmod>
     </url>
     <url>
         <loc>http://leknarf.net/blog/2013/02/10/new-york-at-night/</loc>
-        <lastmod>2013-02-10T19:12:07-05:00</lastmod>
+        <lastmod>2013-02-19T09:02:44-05:00</lastmod>
+    </url>
+    <url>
+        <loc>http://leknarf.net/blog/2013/02/19/using-kickstarter-as-your-mvp/</loc>
+        <lastmod>2013-02-19T09:02:50-05:00</lastmod>
     </url>
     <url>
         <loc>http://leknarf.net/blog/archives/</loc>
-        <lastmod>2013-02-10T19:12:07-05:00</lastmod>
+        <lastmod>2013-02-19T09:02:50-05:00</lastmod>
     </url>
     <url>
         <loc>http://leknarf.net/</loc>
-        <lastmod>2013-02-10T19:12:07-05:00</lastmod>
+        <lastmod>2013-02-19T09:02:50-05:00</lastmod>
     </url>
     <url>
         <loc>http://leknarf.net/photography/</loc>
-        <lastmod>2013-02-10T19:12:07-05:00</lastmod>
+        <lastmod>2013-02-19T09:02:50-05:00</lastmod>
     </url>
     <url>
         <loc>http://leknarf.net/robots.txt</loc>
-        <lastmod>2013-02-10T19:12:07-05:00</lastmod>
+        <lastmod>2013-02-19T09:02:44-05:00</lastmod>
     </url>
 </urlset>
