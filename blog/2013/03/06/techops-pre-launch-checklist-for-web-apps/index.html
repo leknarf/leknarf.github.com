@@ -3,11 +3,11 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>A blog is a mini-startup - Leknarf</title>
+	<title>TechOps pre-launch checklist for web apps - Leknarf</title>
 	<meta name="author" content="Andrew Frankel">
 
 	
-	<meta name="description" content="Launching a new blog isn&#8217;t dissimilar to launching a startup. In fact, the difficulties in launching a blog are effectively a sub-set of the &hellip;">
+	<meta name="description" content="As my startup gears up for our first paid marketing campaign, I&#8217;ve been giving some thought to the necessary preparations a developer should go &hellip;">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -17,7 +17,7 @@
 
 	<link href="http://feeds.feedburner.com/Leknarf" rel="alternate" title="Leknarf" type="application/atom+xml">
 	
-	<link rel="canonical" href="http://leknarf.net/blog/2013/02/09/a-blog-is-a-mini-startup/">
+	<link rel="canonical" href="http://leknarf.net/blog/2013/03/06/techops-pre-launch-checklist-for-web-apps/">
 	<link href="/favicon.png" rel="shortcut icon">
 	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
 	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
@@ -95,48 +95,53 @@
 			<div class="mid-col-container">
 				<div id="content" class="inner"><article class="post">
   
-	<h1 class="title">A Blog Is a Mini-startup</h1>
-	<div class="entry-content"><p>Launching a new blog isn&#8217;t dissimilar to launching a startup. In fact, the difficulties in launching a blog are effectively a sub-set of the key problems to solve when creating a startup. Specifically, building a new blog requires you to figure out the following questions:</p>
+	<h1 class="title">TechOps Pre-launch Checklist for Web Apps</h1>
+	<div class="entry-content"><p>As my startup gears up for our first paid marketing campaign, I&#8217;ve been giving some thought to the necessary preparations a developer should go through before driving some traffic to a web app.</p>
 
-<ul>
-<li>Who are your potential readers?</li>
-<li>How will those readers find your blog?</li>
-<li>Will those readers subscribe, share, comment, or otherwise engage with your content?</li>
-<li>What do you expect from a &#8220;successful&#8221; blog?</li>
-</ul>
+<p>In general, the goal isn&#8217;t to prevent every possible problem. In addition to being impossible, any attempts to do so would almost certainly involve premature engineering. Instead, my goal is to be adequately prepared for unforeseeable problems. The important thing is to ensure I&#8217;ll be notified when a problems occur and that I&#8217;ll have enough information to investigate and fix said problems.</p>
 
+<p>We&#8217;re hosted on AWS, so this list assumes you&#8217;re running in a similar environment. Managed platforms like Heroku take care of much of this for you.</p>
+
+<p>In no particular order, the following should be completed before aggressively promoting a new web app:</p>
 
 <!-- more -->
 
 
-<p>If these questions sound familiar, that&#8217;s because they are fundamental to the first two steps in Steve Blank&#8217;s <a href="http://www.amazon.com/gp/product/0976470705/ref=as_li_ss_tl?ie=UTF8&amp;camp=1789&amp;creative=390957&amp;creativeASIN=0976470705&amp;linkCode=as2&amp;tag=leknarf-20" title="">The Four Steps to the Epiphany</a>, namely &#8220;Customer Discovery&#8221; and &#8220;Customer Validation&#8221;. Creating and marketing a blog is a great way to practice the customer development skills necessary for an early startup, without having to worry about the parallel challenge of product development.</p>
-
-<h2>Customer Discovery</h2>
-
-<p><span class='pullquote-right' data-pullquote='Marketing your blog is almost entirely a problem of execution: you don&#8217;t need a clever new strategy, you just need to get out there and hustle.'>
-Discovery is a fairly obvious requirement for a new blog. I don&#8217;t believe many folks start a blog without at least intending to find readers. Fortunately, the process of finding readers for a blog is far more straightforward than discovering potential customers for a startup. There&#8217;s already a large market of people who read other blogs, you just need to convince them that yours is at least worth a cursory skim. And there&#8217;s already an established base of communities like <a href="http://news.ycombinator.com">hacker news</a> and <a href="http://reddit.com">reddit</a> that exist primarily for readers to discover, share, and discuss new content. Marketing your blog is almost entirely a problem of execution: you don&#8217;t need a clever new strategy, you just need to get out there and hustle. This is far easier than discovering customers for a new product category.
-</span></p>
-
-<p>More importantly, by accepting that building a readership just requires some honest labor, you can avoid a common pitfall. Smart people (particularly developers) enjoy thinking about ways to do their jobs more efficiently. When building a startup, it&#8217;s tempting to spend so much time thinking about ways to reach new customers that you never actually get around to speaking to any. This is obviously absurd in the context of building a blog&#8217;s readership. Working on developing your blog&#8217;s reach is a great way to develop a habit of doing instead of just planning.</p>
-
-<h2>Customer Validation</h2>
-
-<p><span class='pullquote-right' data-pullquote='A blog doesn&#8217;t have to become a revenue stream to be successful, but it is important to identify some possible benefits, consider how feasible they are, and figure out what sort of readers you want.'>
-Validation requires a little more thought. For a commercial startup, validation usually revolves around assessing willingness to pay. A blog doesn&#8217;t have to become a revenue stream to be successful, but it is important to identify some possible benefits, consider how feasible they are, and figure out what sort of readers you want. It&#8217;s not necessary for your readers to pay you directly, but it is important to identify some sort of desired action you want to encourage.
-</span></p>
-
-<p>In particular, some plausible motivations for blogging are to:</p>
+<h1>Prepare for disaster</h1>
 
 <ul>
-<li>Articulate and develop your own thoughts: Thinking is easy; writing is hard. Ideas are tough to nail down. Something that sounds wonderful bouncing around in your head can look outright preposterous once it finds its way to paper. Writing things down and sharing them is a straightforward way to develop intellectual honesty. You can get some benefits from writing even without a readership, but ideally, you&#8217;ll want to find thoughtful readers who are interested in discussing your ideas and challenging your assumptions. If you happen to build up a large pool of readers who never comment or engage with you, then you haven&#8217;t found the right readers and should re-consider your discovery efforts.</li>
-<li>Establish some bona fides. Perhaps you&#8217;ve been reading this blog and thought to yourself, &#8220;That chap seems to know what&#8217;s up.&#8221; Validation for this goal can be as simple as collecting points. Unlike the above, silent readers are okay for this goal, provided that they&#8217;re willing to up vote your content on social media sites.</li>
-<li>Direct some traffic to another project, such as my <a href="http://topshelfclothes.com">current startup</a>. This is starting to get more difficult, but is still pretty reasonable. Readers of this blog probably like startups, I&#8217;ve got one, so perhaps you&#8217;d like to take a look at mine? This thought process quickly breaks down if there isn&#8217;t a straightforward connection between the blog&#8217;s content and the project in question. A photo-blog of cat cartoons is odd marketing for an enterprise software company, but might work out if <a href="http://octodex.github.com/">done right</a>. The key metric here is simple: you want to review the conversation funnel for your other project and compare traffic from your blog with other traffic sources.</li>
+<li>Setup fully automated, zero-downtime deployments: Once people are using your site, you can&#8217;t bring down the server to make changes. If you haven&#8217;t already set up a smooth deployment process, this should be your first priority.</li>
+<li>Automatically collect database backups and store in S3: hourly x 48, daily x 14, weekly x 8, and monthly x forever.</li>
+<li>Restore the database from these backups to a developer&#8217;s machine at least once.</li>
+<li>Ship your log files to a hosted retention service (Splunk, Loggly, Papertrail). Or prepare your own scripts to copy files to S3.</li>
+<li>Setup application performance monitoring and alerting (New Relic). If your site gets a sudden traffic spike, this should notify you that you&#8217;ve exceeded your capacity.</li>
+<li>Server monitoring (New Relic): If your server is running out of hard drive space or if an errant process is consuming all the CPU/RAM, you&#8217;ll want to get an email before the site goes down.</li>
+<li>Uptime alerting/monitoring (New Relic and Pingdom): If the site does go down, you&#8217;ll obviously want to know about it. New Relic does this via email, but Pingdom&#8217;s mobile app is free and excellent.</li>
+<li>Error alerting (Airbrake, Exceptional): Again, if something goes wrong, you want to find out about it.</li>
+<li>If your application doesn&#8217;t require a high level of user privacy, then you should be able to log into your site as a given user. Odd problems will pop up that only affect one user. It&#8217;s a lot easier to investigate when you can see exactly what that user is seeing.</li>
 </ul>
 
 
-<h2>Practice the hard stuff</h2>
+<h1>Basic security checks</h1>
 
-<p>Startups are hard. There&#8217;s no way around that. You&#8217;re unlikely to find immediate success regardless, but you can improve your chances by developing relevant skills. Software developers are often tempted to focus on becoming better developers. Product development is certainly relevant to any startup, but the challenge for most early startups is finding customers. Learning the latest web framework won&#8217;t help you validate a business model, but finding readers for a new blog is a great way to learn and practice customer development.</p>
+<ul>
+<li>Upgrade to the latest versions or install security patches for all the major components of your stack, including your framework (Rails/Django/etc.), web server (nginx, apache, etc.), and OS.</li>
+<li>Install Fail2Ban on any publicly available servers.</li>
+<li>Configure firewalls to restrict access to any server that don&#8217;t need to be publicly available (i.e. your database, message broker, etc.) and block all but the necessary ports.</li>
+<li>Change any horrendously insecure passwords you may have. Many startups use absurd passwords like &#8220;password&#8221; or &#8220;test123&#8221; for their admin accounts when starting out. These should be changed as soon as possible.</li>
+</ul>
+
+
+<h1>Prep for scaling</h1>
+
+<ul>
+<li>Serve static assets from S3 or a CDN (CloudFlare, CloudFront)</li>
+<li>Setup a caching layer (Memcached, Redis, Varish)</li>
+<li>Point your DNS entry to a load balancer, not an individual server. ELB makes this easy. If you do take on a massive amount of traffic, you can always add more web servers to the load balancer.</li>
+<li>You should have the ability to scale up to N web servers at any time (Chef).</li>
+<li>If something odd happens on one of your servers, the two points above make the solution easy: just spin up a new web node, add it to the load balancer, and then remove the failing node. Don&#8217;t bother trying to fix or even diagnose one-off failures.</li>
+</ul>
+
 </div>
 
 
@@ -188,7 +193,7 @@ SOFTWARE.
       hn_like.src = "http://hnlike.com/upvote.php?link="
                     + encodeURIComponent(document.location)
                     + "&title="
-                    + encodeURIComponent("A blog is a mini-startup");
+                    + encodeURIComponent("TechOps pre-launch checklist for web apps");
       hn_like.innerHTML="iframes not supported by your browser";
       var share = document.getElementsByClassName("hn_like")[0];
 
@@ -219,6 +224,12 @@ SOFTWARE.
 
 
 
+<section id="comment">
+    <h1 class="title">Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+
 </div>
 			</div>
 			<footer id="footer" class="inner"><p>
@@ -243,7 +254,10 @@ SOFTWARE.
       var disqus_shortname = 'leknarf';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://leknarf.net/blog/2013/03/06/techops-pre-launch-checklist-for-web-apps/';
+        var disqus_url = 'http://leknarf.net/blog/2013/03/06/techops-pre-launch-checklist-for-web-apps/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
