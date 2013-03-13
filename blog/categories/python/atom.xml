@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: software | Leknarf]]></title>
-  <link href="http://leknarf.net/blog/categories/software/atom.xml" rel="self"/>
+  <title><![CDATA[Category: python | Leknarf]]></title>
+  <link href="http://leknarf.net/blog/categories/python/atom.xml" rel="self"/>
   <link href="http://leknarf.net/"/>
   <updated>2013-03-13T19:38:44-04:00</updated>
   <id>http://leknarf.net/</id>
@@ -60,60 +60,6 @@
 <p>The result is a very maintainable weekend project that doesn't actually require me to run any servers. Firebase, Github Pages, Heroku, and Twitter handle all of the responsibilities I'd usually need a server for, without forcing me to deal with security, scalability, or monitoring.</p>
 
 <p>Source code is available on <a href="https://github.com/leknarf/hn-notify">Github</a>.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[TechOps pre-launch checklist for web apps]]></title>
-    <link href="http://leknarf.net/blog/2013/03/06/techops-pre-launch-checklist-for-web-apps/"/>
-    <updated>2013-03-06T11:49:00-05:00</updated>
-    <id>http://leknarf.net/blog/2013/03/06/techops-pre-launch-checklist-for-web-apps</id>
-    <content type="html"><![CDATA[<p>As my startup gears up for our first paid marketing campaign, I've been giving some thought to the necessary preparations a developer should go through before driving some traffic to a web app.</p>
-
-<p>In general, the goal isn't to prevent every possible problem. In addition to being impossible, any attempts to do so would almost certainly involve premature engineering. Instead, my goal is to be adequately prepared for unforeseeable problems. The important thing is to ensure I'll be notified when a problems occur and that I'll have enough information to investigate and fix said problems.</p>
-
-<p>We're hosted on AWS, so this list assumes you're running in a similar environment. Managed platforms like Heroku take care of much of this for you.</p>
-
-<p>In no particular order, the following should be completed before aggressively promoting a new web app:</p>
-
-<!-- more -->
-
-
-<h1>Prepare for disaster</h1>
-
-<ul>
-<li>Setup fully automated, zero-downtime deployments: Once people are using your site, you can't bring down the server to make changes. If you haven't already set up a smooth deployment process, this should be your first priority.</li>
-<li>Automatically collect database backups and store in S3: hourly x 48, daily x 14, weekly x 8, and monthly x forever.</li>
-<li>Restore the database from these backups to a developer's machine at least once.</li>
-<li>Ship your log files to a hosted retention service (Splunk, Loggly, Papertrail). Or prepare your own scripts to copy files to S3.</li>
-<li>Setup application performance monitoring and alerting (New Relic). If your site gets a sudden traffic spike, this should notify you that you've exceeded your capacity.</li>
-<li>Server monitoring (New Relic): If your server is running out of hard drive space or if an errant process is consuming all the CPU/RAM, you'll want to get an email before the site goes down.</li>
-<li>Uptime alerting/monitoring (New Relic and Pingdom): If the site does go down, you'll obviously want to know about it. New Relic does this via email, but Pingdom's mobile app is free and excellent.</li>
-<li>Error alerting (Airbrake, Exceptional): Again, if something goes wrong, you want to find out about it.</li>
-<li>If your application doesn't require a high level of user privacy, then you should be able to log into your site as a given user. Odd problems will pop up that only affect one user. It's a lot easier to investigate when you can see exactly what that user is seeing.</li>
-</ul>
-
-
-<h1>Basic security checks</h1>
-
-<ul>
-<li>Upgrade to the latest versions or install security patches for all the major components of your stack, including your framework (Rails/Django/etc.), web server (nginx, apache, etc.), and OS.</li>
-<li>Install Fail2Ban on any publicly available servers.</li>
-<li>Configure firewalls to restrict access to any server that don't need to be publicly available (i.e. your database, message broker, etc.) and block all but the necessary ports.</li>
-<li>Change any horrendously insecure passwords you may have. Many startups use absurd passwords like "password" or "test123" for their admin accounts when starting out. These should be changed as soon as possible.</li>
-</ul>
-
-
-<h1>Prep for scaling</h1>
-
-<ul>
-<li>Serve static assets from S3 or a CDN (CloudFlare, CloudFront)</li>
-<li>Setup a caching layer (Memcached, Redis, Varish)</li>
-<li>Point your DNS entry to a load balancer, not an individual server. ELB makes this easy. If you do take on a massive amount of traffic, you can always add more web servers to the load balancer.</li>
-<li>You should have the ability to scale up to N web servers at any time (Chef).</li>
-<li>If something odd happens on one of your servers, the two points above make the solution easy: just spin up a new web node, add it to the load balancer, and then remove the failing node. Don't bother trying to fix or even diagnose one-off failures.</li>
-</ul>
-
 ]]></content>
   </entry>
   

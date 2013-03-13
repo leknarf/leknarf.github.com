@@ -3,11 +3,11 @@
 <html xmlns:fb="http://ogp.me/ns/fb#">
 <head>
 	<meta charset="utf-8">
-	<title>TechOps pre-launch checklist for web apps - Leknarf</title>
+	<title>Find out when to post on hacker news - Leknarf</title>
 	<meta name="author" content="Andrew Frankel">
 
 	
-	<meta name="description" content="As my startup gears up for our first paid marketing campaign, I&#8217;ve been giving some thought to the necessary preparations a developer should go &hellip;">
+	<meta name="description" content="As part of my efforts to promote this new blog, I&#8217;ve been submitting posts to hacker news. Not surprisingly, my initial submissions went &hellip;">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -17,7 +17,7 @@
 
 	<link href="http://feeds.feedburner.com/Leknarf" rel="alternate" title="Leknarf" type="application/atom+xml">
 	
-	<link rel="canonical" href="http://leknarf.net/blog/2013/03/06/techops-pre-launch-checklist-for-web-apps/">
+	<link rel="canonical" href="http://leknarf.net/blog/2013/03/13/find-out-when-to-post-on-hacker-news/">
 	<link href="/favicon.png" rel="shortcut icon">
 	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
 	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
@@ -97,7 +97,7 @@
 			<div class="mid-col-container">
 				<div id="content" class="inner"><article class="post">
   
-	<h1 class="title">TechOps Pre-launch Checklist for Web Apps</h1>
+	<h1 class="title">Find Out When to Post on Hacker News</h1>
   
     <div class="share_small clearfix">
     <div class="addthis_toolbox addthis_default_style addthis_default_style">
@@ -112,52 +112,48 @@
 </div>
 
   
-	<div class="entry-content"><p>As my startup gears up for our first paid marketing campaign, I&#8217;ve been giving some thought to the necessary preparations a developer should go through before driving some traffic to a web app.</p>
+	<div class="entry-content"><p>As part of my efforts to <a href="/blog/2013/02/09/a-blog-is-a-mini-startup/">promote this new blog</a>, I&#8217;ve been submitting posts to <a href="news.ycombinator.com">hacker news</a>. Not surprisingly, my initial submissions went roughly nowhere. Less than 100 visitors saw the posts.</p>
 
-<p>In general, the goal isn&#8217;t to prevent every possible problem. In addition to being impossible, any attempts to do so would almost certainly involve premature engineering. Instead, my goal is to be adequately prepared for unforeseeable problems. The important thing is to ensure I&#8217;ll be notified when a problems occur and that I&#8217;ll have enough information to investigate and fix said problems.</p>
+<p>Stepping back, I decided to think a little more about timing my submissions to get better results. <a href="http://hnpickup.appspot.com/">HN Pickup Ratio</a> looked like a nice representation of the relevant factors, but it is sadly defunct, as App Engine has been blocked from scraping hacker news. I liked the concept enough to write my own implementation, which is now available here: <a href="http://hnnotify.leknarf.net">HN Notify</a>.</p>
 
-<p>We&#8217;re hosted on AWS, so this list assumes you&#8217;re running in a similar environment. Managed platforms like Heroku take care of much of this for you.</p>
+<p>Timing my <a href="https://news.ycombinator.com/item?id=5335241">last submission</a> was exceptionally successful: it reached the front page of hacker news and was seen by 3,000 readers.</p>
 
-<p>In no particular order, the following should be completed before aggressively promoting a new web app:</p>
+<h2>Concept</h2>
+
+<p>Assuming you want your HN submission to reach the front page, then it&#8217;s important to post at times when scores on the new page are relatively high compared to the front page.</p>
 
 <!-- more -->
 
 
-<h1>Prepare for disaster</h1>
+<p>This assumes your goal is to reach the front page. I don&#8217;t actually know how many people skim over the &#8216;new&#8217; links, but it&#8217;s fairly obvious that a far greater number of people only look at the first 30 links on the home page.</p>
+
+<p>For the purposes of discussion, I&#8217;m going to assume a very simplistic model of the HN front page: new stories with more points will outrank older stories with less points. That is, I&#8217;m ignoring any effects existing karma has on a user&#8217;s submission and any factors related to when a story gets upvotes. If we assume that a new story needs to get more points than an existing story in order to replace it on the front page, then the following is straightforward:</p>
 
 <ul>
-<li>Setup fully automated, zero-downtime deployments: Once people are using your site, you can&#8217;t bring down the server to make changes. If you haven&#8217;t already set up a smooth deployment process, this should be your first priority.</li>
-<li>Automatically collect database backups and store in S3: hourly x 48, daily x 14, weekly x 8, and monthly x forever.</li>
-<li>Restore the database from these backups to a developer&#8217;s machine at least once.</li>
-<li>Ship your log files to a hosted retention service (Splunk, Loggly, Papertrail). Or prepare your own scripts to copy files to S3.</li>
-<li>Setup application performance monitoring and alerting (New Relic). If your site gets a sudden traffic spike, this should notify you that you&#8217;ve exceeded your capacity.</li>
-<li>Server monitoring (New Relic): If your server is running out of hard drive space or if an errant process is consuming all the CPU/RAM, you&#8217;ll want to get an email before the site goes down.</li>
-<li>Uptime alerting/monitoring (New Relic and Pingdom): If the site does go down, you&#8217;ll obviously want to know about it. New Relic does this via email, but Pingdom&#8217;s mobile app is free and excellent.</li>
-<li>Error alerting (Airbrake, Exceptional): Again, if something goes wrong, you want to find out about it.</li>
-<li>If your application doesn&#8217;t require a high level of user privacy, then you should be able to log into your site as a given user. Odd problems will pop up that only affect one user. It&#8217;s a lot easier to investigate when you can see exactly what that user is seeing.</li>
+<li>It&#8217;s a good time to submit when scores on the front page are low. If the lowest-ranked story has 10 points, it will be much easier to replace than if the lowest-ranked story has 100 points.</li>
+<li>It&#8217;s a good time to post when scores on the new page are high. If the highest-ranked story on the new page only has 2 points, it doesn&#8217;t seem likely that your submission will fare much better.</li>
 </ul>
 
 
-<h1>Basic security checks</h1>
+<h2>Differences from HN Pickup</h2>
 
-<ul>
-<li>Upgrade to the latest versions or install security patches for all the major components of your stack, including your framework (Rails/Django/etc.), web server (nginx, apache, etc.), and OS.</li>
-<li>Install Fail2Ban on any publicly available servers.</li>
-<li>Configure firewalls to restrict access to any server that don&#8217;t need to be publicly available (i.e. your database, message broker, etc.) and block all but the necessary ports.</li>
-<li>Change any horrendously insecure passwords you may have. Many startups use absurd passwords like &#8220;password&#8221; or &#8220;test123&#8221; for their admin accounts when starting out. These should be changed as soon as possible.</li>
-</ul>
+<p>HN Pickup introduced this concept of comparing the lowest-front-page with the highest-new-page scores. It graphs the mean of the last 6 data points in each category along with the ratio of the two averages. From what I&#8217;ve seen, it&#8217;s fairly rare for new page scores to exceed those on the front page, so I&#8217;m just considering the difference between the two. I also don&#8217;t think the mean is an appropriate statistic, given how easy it is for extremely popular submissions to skew the results. Instead, I&#8217;m using the second-highest and second-lowest scores. This provides some protection against outliers.</p>
 
+<p>I disliked the idea of compulsively watching a graph update, so I added an alert mechanism. If you follow <a href="https://twitter.com/HNNotify">@HNNotify</a> on twitter, you&#8217;ll be able to receive notifications of opportune submission times. It won&#8217;t post more than once an hour and also ignores times when the high score on the front page is less than 10, which reduces the noise in the feed.</p>
 
-<h1>Prep for scaling</h1>
+<p>When you are compulsively waiting for a submission window, it&#8217;s nice to see the chart update in real-time. This chart updates automatically, without refreshing the page.</p>
 
-<ul>
-<li>Serve static assets from S3 or a CDN (CloudFlare, CloudFront)</li>
-<li>Setup a caching layer (Memcached, Redis, Varish)</li>
-<li>Point your DNS entry to a load balancer, not an individual server. ELB makes this easy. If you do take on a massive amount of traffic, you can always add more web servers to the load balancer.</li>
-<li>You should have the ability to scale up to N web servers at any time (Chef).</li>
-<li>If something odd happens on one of your servers, the two points above make the solution easy: just spin up a new web node, add it to the load balancer, and then remove the failing node. Don&#8217;t bother trying to fix or even diagnose one-off failures.</li>
-</ul>
+<p>Since HN Pickup was blocked, I don&#8217;t want to scrape HN directly. Instead, this uses the Unofficial Hacker News API as its data source, which has been reliable so far.</p>
 
+<h2>Architecture &amp; Implementation</h2>
+
+<p>This sort of real-time data scraping/representation is a great fit for <a href="https://www.firebase.com/">Firebase</a>, which is a very exciting hosted database service. They provide a REST API that lets you write and read data from anywhere, which means I don&#8217;t need to run a web server. Instead, the project frontend is an entirely static page running on Github Pages, which fetches updated data directly from Firebase using javascript.</p>
+
+<p>The backend is a simple python script running on Heroku. This handles polling the HN API, writing the data to Firebase, and sending notifications to twitter.</p>
+
+<p>The result is a very maintainable weekend project that doesn&#8217;t actually require me to run any servers. Firebase, Github Pages, Heroku, and Twitter handle all of the responsibilities I&#8217;d usually need a server for, without forcing me to deal with security, scalability, or monitoring.</p>
+
+<p>Source code is available on <a href="https://github.com/leknarf/hn-notify">Github</a>.</p>
 </div>
 
 
@@ -212,8 +208,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://leknarf.net/blog/2013/03/06/techops-pre-launch-checklist-for-web-apps/';
-        var disqus_url = 'http://leknarf.net/blog/2013/03/06/techops-pre-launch-checklist-for-web-apps/';
+        var disqus_identifier = 'http://leknarf.net/blog/2013/03/13/find-out-when-to-post-on-hacker-news/';
+        var disqus_url = 'http://leknarf.net/blog/2013/03/13/find-out-when-to-post-on-hacker-news/';
         var disqus_script = 'embed.js';
       
     (function () {
