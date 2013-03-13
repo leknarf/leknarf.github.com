@@ -7,6 +7,9 @@
 		{% endif %}
 	</div>
 	<h1 class="title"><a href="{{ root_url }}{{ post.url }}">{% if site.titlecase %}{{ post.title | titlecase }}{% else %}{{ post.title }}{% endif %}</a></h1>
+    {% unless page.sharing == false %}
+      {% include post/sharing_small.html %}
+    {% endunless %}
 	<div class="entry-content">
     {% if post.layout == 'photo' %}
         <img src="{{post.image}}" width="{{site.photo_width}}"/>
@@ -20,5 +23,8 @@
 	</div>
 {% else %}
 	<h1 class="title">{% if site.titlecase %}{{ page.title | titlecase }}{% else %}{{ page.title }}{% endif %}</h1>
+  {% unless page.sharing == false %}
+    {% include post/sharing_small.html %}
+  {% endunless %}
 	<div class="entry-content">{{ content }}</div>
 {% endif %}
