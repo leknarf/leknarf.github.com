@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: food | Leknarf]]></title>
+  <link href="http://leknarf.net/blog/categories/food/atom.xml" rel="self"/>
+  <link href="http://leknarf.net/"/>
+  <updated>2013-03-29T19:00:35-04:00</updated>
+  <id>http://leknarf.net/</id>
+  <author>
+    <name><![CDATA[Andrew Frankel]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Bacon cheese kugel]]></title>
+    <link href="http://leknarf.net/blog/2013/03/29/bacon-cheese-kugel/"/>
+    <updated>2013-03-29T19:00:00-04:00</updated>
+    <id>http://leknarf.net/blog/2013/03/29/bacon-cheese-kugel</id>
+    <content type="html"><![CDATA[<p>For some <a href="http://en.wikipedia.org/wiki/Kashrut">inexplicable reason</a>, the internet didn't already have a recipe for bacon cheese <a href="http://en.wikipedia.org/wiki/Kugel">kugel</a>. I decided to fix that:</p>
+
+<h1>Bacon Cheese Kugel</h1>
+
+<h2>Ingredients:</h2>
+
+<ul>
+<li>1 pound noodles. You may use potato noodles if you're making this for Passover</li>
+<li>3/4 pound cheddar cheese, shredded</li>
+<li>3/4 pound bacon</li>
+<li>8 eggs</li>
+<li>kosher salt</li>
+</ul>
+
+
+<!-- more -->
+
+
+<h2>Preparation:</h2>
+
+<p>Preheat oven to 350 F.</p>
+
+<p>Boil the noodles in salted water for half as long as instructed on the package. They should be slightly soft, but still much harder than what you'd normally consider done. Strain over a container and set aside the pasta water, you'll need to later.</p>
+
+<p>While the noodles are boiling, cut the bacon into large pieces (around 1 square inch). Cook over low heat (lower than usual for bacon) until around 3/4 done (the bacon should not turn crispy).</p>
+
+<p>Scramble the eggs, add the cheese, then stir in a small amount the pasta water (around 1/2 cup). You just want to warm the mixture without shocking the eggs. Add the noodles, stir, then the bacon (including the drippings). This mixture will be very thick. Stir in more of the pasta water until it's about the consistency of cottage cheese.</p>
+
+<p>Bake covered for around 45 minutes. It's ready once the center has set. Serve warm (this kugel will be exceptionally thick when cold).</p>
+]]></content>
+  </entry>
+  
+</feed>
