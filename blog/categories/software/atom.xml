@@ -4,7 +4,7 @@
   <title><![CDATA[Category: software | Leknarf]]></title>
   <link href="http://leknarf.net/blog/categories/software/atom.xml" rel="self"/>
   <link href="http://leknarf.net/"/>
-  <updated>2013-03-29T19:00:35-04:00</updated>
+  <updated>2013-04-18T11:49:56-04:00</updated>
   <id>http://leknarf.net/</id>
   <author>
     <name><![CDATA[Andrew Frankel]]></name>
@@ -12,6 +12,247 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Notes from the AWS Invent 2013 Keynote]]></title>
+    <link href="http://leknarf.net/blog/2013/04/18/aws-invent-2013-keynote-notes/"/>
+    <updated>2013-04-18T09:33:00-04:00</updated>
+    <id>http://leknarf.net/blog/2013/04/18/aws-invent-2013-keynote-notes</id>
+    <content type="html"><![CDATA[<p>The following are my notes from the 2013 AWS Summit Keynote presentation. These notes are largely for my benefit (mostly to make sure I'm actually paying attention during the talks) but may be interesting to others.</p>
+
+<p>I wrote these notes during the presentation and have not diligently separated my thoughts from those of the speakers. It's possible I have misunderstood some points or added thoughts of my own. Please assume any good ideas were originally those of the speaker. Any bad ideas are either my own musings or a misinterpreting of the presentation in question.</p>
+
+<!-- more -->
+
+
+<h2>Werner Vogels, Amazon CTO</h2>
+
+<ul>
+<li>AWS started with just S3. EC2 was second.</li>
+<li>NASA JPL is an AWS customer: Mars Rover data is stored and shared on S3.</li>
+<li>AWS philosophy: No lock-in: any OS, any middleware, any software, etc.</li>
+<li>AWS Marketplace one year in: 25 categories, 778 products.</li>
+<li>31 AWS price reductions since 2006. This drives a cycle of growing the customer base, achieving economies of scale, and further reducing costs.</li>
+<li>"Computing should be like turning on a light switch: you never even consider the cost"</li>
+<li>AWS Trusted Advisor: Customer Infrastructure Audits will review your AWS usage and suggest ways to decrease your costs.</li>
+<li>AWS follows a startup model for new products: new products are launched with limited features, so Amazon can learn how customers are using the tools before developing them more fully.</li>
+<li>Local secondary indices for DynamoDB: provides relational db flexibility on top of dynamo's scalability.</li>
+<li>Success of cloud computing follows an existing economic pattern:
+
+<ul>
+<li>Reduced customer loyalty to large brands</li>
+<li>Highly uncertain environments require flexibility:
+
+<ul>
+<li>Use resources on demand</li>
+<li>Release unneeded resources</li>
+<li>Pay for what you use</li>
+<li>Leverage other providers' core competencies</li>
+<li>Replace fixed costs with variable rates</li>
+</ul>
+</li>
+</ul>
+</li>
+<li> No (or highly reduced) upfront capital expenses</li>
+<li> Samsung avoided a 34 million upfront expense on their SmartHub project</li>
+<li> Lower variable expense than DiY.</li>
+<li> Less guesswork in capacity planning.
+
+<ul>
+<li>Amazon.com used to target +50% spare capacity above peak traffic spikes</li>
+<li>Now they elasticially scale up and down</li>
+</ul>
+</li>
+<li>Cheap resources reduces the cost of innovation:
+
+<ul>
+<li>Experiment often</li>
+<li>Fail quickly at low cost</li>
+<li>More innovation</li>
+</ul>
+</li>
+<li>Stop spending money on undifferentiated heavy lifting</li>
+<li>Grow to global scale on-demand</li>
+</ul>
+
+
+<h2>Russell Towell, Bristol-Myers Squibb</h2>
+
+<ul>
+<li>Following an "asset reduction strategy" company wide: gradually replacing in-house servers with cloud resources.</li>
+<li>Security:
+
+<ul>
+<li>use VPC</li>
+<li>don't use public AMIs. BMS builds their own.</li>
+</ul>
+</li>
+<li>In-house dev-ops portal. Total monthly cost of $4.20 to allow developers to provision resources on demand.</li>
+<li>Business hours policy: only run servers daytime on weekdays. Shut everything down off-hours. Saves 78% of total costs.</li>
+</ul>
+
+
+<h2>Vogels: AWS in insurance and finance</h2>
+
+<ul>
+<li>Insurance industry:
+
+<ul>
+<li>very price sensitive</li>
+<li>highly competitive</li>
+<li>driven by data</li>
+</ul>
+</li>
+<li>Financial services
+
+<ul>
+<li>Extreme competition</li>
+<li>New products and instruments daily</li>
+<li>Strict compliance and security requirements</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>Scott Mullins, Nasdaq OMX and Holly Hasty, FirstSouthwest</h2>
+
+<ul>
+<li>1 out of every 10 financial transactions is powered by Nasdaq tech at some point in the process</li>
+<li>FinQloud, Nasdaq product running on AWS
+
+<ul>
+<li>Wraps existing AWS services (like S3 and EC2) with security and compliance features</li>
+</ul>
+</li>
+<li>FinQloud use at FirstSouthwest:
+
+<ul>
+<li>FinQloud helped migrate legacy data</li>
+<li>Usual cloud benefits: fast velocity, reduced cost, reduced complexity</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>Vogels</h2>
+
+<ul>
+<li>Media
+
+<ul>
+<li>Newspaper advertising is dramatically down across the board</li>
+<li>Almost all the large media brands are running on AWS and trying to reduce costs</li>
+<li>News organizations need to launch new products and innovate just to survive</li>
+<li>Netflix is big AWS customer, if you haven't heard already</li>
+<li>ABC is running a platform that includes real time transcoding of video streams for specific devices</li>
+</ul>
+</li>
+<li>Manufacturing
+
+<ul>
+<li>Highly collaborative across borders</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>Joe Salvo, GE</h2>
+
+<ul>
+<li>First commercial power grid was built in NYC at 257 Pearl Street</li>
+<li>GE wants to cloud-enable the manufacturing design process
+
+<ul>
+<li>Design</li>
+<li>Share</li>
+<li>Simulate</li>
+<li>Schedule</li>
+</ul>
+</li>
+<li>GE built an in-house marketplace (CEED) for ephemeral cloud resources</li>
+<li>First commercial use of GovCloud</li>
+<li>Cloud resources can protect IP by avoiding centralization: store separate components in different silos/countries</li>
+</ul>
+
+
+<h2>Vogels again</h2>
+
+<ul>
+<li>Healthcare and biotechnology are driven by data</li>
+<li>One of the CDC's responsibilities is to collect massive amounts of global data on potential disease trends/risks
+
+<ul>
+<li>Built a open platform (BioSense) to provide real-time data to interested parties</li>
+</ul>
+</li>
+<li>Illumina:
+
+<ul>
+<li>leading provider of DNA sequencing devices</li>
+<li>devices connect directly to AWS to store massive amounts of data</li>
+<li>provides security and encryption tech for both data transfer and storage</li>
+</ul>
+</li>
+<li>1000 Genomes Project
+
+<ul>
+<li>250 TB data</li>
+<li>~2000 complete genomes</li>
+<li>publicly available on S3</li>
+</ul>
+</li>
+<li>Unilever works with Eagle Genomic create deodorant and toothpaste that's tailored to your genes</li>
+<li>Hospitality industry:
+
+<ul>
+<li>Hotelogix is a "property management system" for boutique hotels</li>
+</ul>
+</li>
+<li>Future of cloud computing and big data (guesses by Vogels):
+
+<ul>
+<li>Trend to real time information</li>
+<li>Deeper integration</li>
+<li>Vertical application of analytics</li>
+<li>Hadoop will become invisible</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>K Young, Mortar</h2>
+
+<ul>
+<li>Big data, "Hadoop as a Service" provider</li>
+<li>Company founded in 2011 with 3 co-founders. Accepted to Techstars, took 1.8M seed round.</li>
+<li>Winner of 2013 AWS Global Startup Challenge</li>
+<li>Running 1,000 machines with 18 month runway (from 1.8M seed).</li>
+</ul>
+
+
+<h2>Vogels</h2>
+
+<ul>
+<li>Connected devices
+
+<ul>
+<li>Incredible data collectors/generators</li>
+<li>A treadmill could identify a person from his/her phone and automatically configure itself for that user</li>
+</ul>
+</li>
+<li>Security &amp; Privacy
+
+<ul>
+<li>Incredibly important (possibly most important) concern for developers and engineers</li>
+<li>AWS provides readily available encryption tools to protect customers</li>
+<li>It's possible to install a hardware device at AWS data centers, so that even Amazon will not have your keys or be able to decrypt your data</li>
+<li>New feature: Amazon RDS for Oracle now supports transparent data encryption. MS SQL will follow soon.</li>
+</ul>
+</li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Find out when to post on hacker news]]></title>

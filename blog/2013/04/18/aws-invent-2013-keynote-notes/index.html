@@ -1,0 +1,434 @@
+
+<!DOCTYPE HTML>
+<html xmlns:fb="http://ogp.me/ns/fb#">
+<head>
+	<meta charset="utf-8">
+	<title>Notes from the AWS Invent 2013 Keynote - Leknarf</title>
+	<meta name="author" content="Andrew Frankel">
+
+	
+	<meta name="description" content="The following are my notes from the 2013 AWS Summit Keynote presentation. These notes are largely for my benefit (mostly to make sure I&#8217;m &hellip;">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="http://feeds.feedburner.com/Leknarf" rel="alternate" title="Leknarf" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://leknarf.net/blog/2013/04/18/aws-invent-2013-keynote-notes/">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700' rel='stylesheet' type='text/css'>
+	<!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+	
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-26433526-1']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+
+  <!-- AddThis Analytics -->
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=undefined"></script>
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><div class="profilepic">
+  <img alt="Profile Picture" src="/images/avatar.jpg" style="width: 160px;">
+</div>
+<h1><a href="/">Leknarf</a></h1>
+<p class="subtitle">Startup engineering</p>
+<nav id="main-nav"><ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/photography">Photography</a></li>
+  <li><a href="http://topshelfclothes.com">My Startup</a></li>
+</ul>
+</nav>
+<nav id="sub-nav">
+  <div class="social">
+    
+    
+    <a class="google" href="https://plus.google.com/107662133153476964169?rel=author" title="Google+">Google+</a>
+    
+    
+    <a class="twitter" href="http://twitter.com/leknarf13" title="Twitter">Twitter</a>
+    
+    
+    <a class="github" href="https://github.com/leknarf" title="GitHub">GitHub</a>
+    
+    
+    <a class="linkedin" href="http://www.linkedin.com/in/andrewdathanfrankel">LinkedIn</a>
+    
+    
+    
+    
+    
+    <a class="rss" href="http://feeds.feedburner.com/Leknarf" title="RSS">RSS</a>
+    
+  </div>
+</nav>
+
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			
+				
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner"><article class="post">
+  
+	<h1 class="title">Notes From the AWS Invent 2013 Keynote</h1>
+  
+    <div class="share_small clearfix">
+    <div class="addthis_toolbox addthis_default_style addthis_default_style">
+    <a class="addthis_button_preferred_1"></a>
+    <a class="addthis_button_preferred_2"></a>
+    <a class="addthis_button_preferred_3"></a>
+    <a class="addthis_button_preferred_4"></a>
+    <a class="addthis_button_compact"></a>
+    </div>
+    <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid="></script>
+</div>
+
+  
+	<div class="entry-content"><p>The following are my notes from the 2013 AWS Summit Keynote presentation. These notes are largely for my benefit (mostly to make sure I&#8217;m actually paying attention during the talks) but may be interesting to others.</p>
+
+<p>I wrote these notes during the presentation and have not diligently separated my thoughts from those of the speakers. It&#8217;s possible I have misunderstood some points or added thoughts of my own. Please assume any good ideas were originally those of the speaker. Any bad ideas are either my own musings or a misinterpreting of the presentation in question.</p>
+
+<!-- more -->
+
+
+<h2>Werner Vogels, Amazon CTO</h2>
+
+<ul>
+<li>AWS started with just S3. EC2 was second.</li>
+<li>NASA JPL is an AWS customer: Mars Rover data is stored and shared on S3.</li>
+<li>AWS philosophy: No lock-in: any OS, any middleware, any software, etc.</li>
+<li>AWS Marketplace one year in: 25 categories, 778 products.</li>
+<li>31 AWS price reductions since 2006. This drives a cycle of growing the customer base, achieving economies of scale, and further reducing costs.</li>
+<li>&#8220;Computing should be like turning on a light switch: you never even consider the cost&#8221;</li>
+<li>AWS Trusted Advisor: Customer Infrastructure Audits will review your AWS usage and suggest ways to decrease your costs.</li>
+<li>AWS follows a startup model for new products: new products are launched with limited features, so Amazon can learn how customers are using the tools before developing them more fully.</li>
+<li>Local secondary indices for DynamoDB: provides relational db flexibility on top of dynamo&#8217;s scalability.</li>
+<li>Success of cloud computing follows an existing economic pattern:
+
+<ul>
+<li>Reduced customer loyalty to large brands</li>
+<li>Highly uncertain environments require flexibility:
+
+<ul>
+<li>Use resources on demand</li>
+<li>Release unneeded resources</li>
+<li>Pay for what you use</li>
+<li>Leverage other providers&#8217; core competencies</li>
+<li>Replace fixed costs with variable rates</li>
+</ul>
+</li>
+</ul>
+</li>
+<li> No (or highly reduced) upfront capital expenses</li>
+<li> Samsung avoided a 34 million upfront expense on their SmartHub project</li>
+<li> Lower variable expense than DiY.</li>
+<li> Less guesswork in capacity planning.
+
+<ul>
+<li>Amazon.com used to target +50% spare capacity above peak traffic spikes</li>
+<li>Now they elasticially scale up and down</li>
+</ul>
+</li>
+<li>Cheap resources reduces the cost of innovation:
+
+<ul>
+<li>Experiment often</li>
+<li>Fail quickly at low cost</li>
+<li>More innovation</li>
+</ul>
+</li>
+<li>Stop spending money on undifferentiated heavy lifting</li>
+<li>Grow to global scale on-demand</li>
+</ul>
+
+
+<h2>Russell Towell, Bristol-Myers Squibb</h2>
+
+<ul>
+<li>Following an &#8220;asset reduction strategy&#8221; company wide: gradually replacing in-house servers with cloud resources.</li>
+<li>Security:
+
+<ul>
+<li>use VPC</li>
+<li>don&#8217;t use public AMIs. BMS builds their own.</li>
+</ul>
+</li>
+<li>In-house dev-ops portal. Total monthly cost of $4.20 to allow developers to provision resources on demand.</li>
+<li>Business hours policy: only run servers daytime on weekdays. Shut everything down off-hours. Saves 78% of total costs.</li>
+</ul>
+
+
+<h2>Vogels: AWS in insurance and finance</h2>
+
+<ul>
+<li>Insurance industry:
+
+<ul>
+<li>very price sensitive</li>
+<li>highly competitive</li>
+<li>driven by data</li>
+</ul>
+</li>
+<li>Financial services
+
+<ul>
+<li>Extreme competition</li>
+<li>New products and instruments daily</li>
+<li>Strict compliance and security requirements</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>Scott Mullins, Nasdaq OMX and Holly Hasty, FirstSouthwest</h2>
+
+<ul>
+<li>1 out of every 10 financial transactions is powered by Nasdaq tech at some point in the process</li>
+<li>FinQloud, Nasdaq product running on AWS
+
+<ul>
+<li>Wraps existing AWS services (like S3 and EC2) with security and compliance features</li>
+</ul>
+</li>
+<li>FinQloud use at FirstSouthwest:
+
+<ul>
+<li>FinQloud helped migrate legacy data</li>
+<li>Usual cloud benefits: fast velocity, reduced cost, reduced complexity</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>Vogels</h2>
+
+<ul>
+<li>Media
+
+<ul>
+<li>Newspaper advertising is dramatically down across the board</li>
+<li>Almost all the large media brands are running on AWS and trying to reduce costs</li>
+<li>News organizations need to launch new products and innovate just to survive</li>
+<li>Netflix is big AWS customer, if you haven&#8217;t heard already</li>
+<li>ABC is running a platform that includes real time transcoding of video streams for specific devices</li>
+</ul>
+</li>
+<li>Manufacturing
+
+<ul>
+<li>Highly collaborative across borders</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>Joe Salvo, GE</h2>
+
+<ul>
+<li>First commercial power grid was built in NYC at 257 Pearl Street</li>
+<li>GE wants to cloud-enable the manufacturing design process
+
+<ul>
+<li>Design</li>
+<li>Share</li>
+<li>Simulate</li>
+<li>Schedule</li>
+</ul>
+</li>
+<li>GE built an in-house marketplace (CEED) for ephemeral cloud resources</li>
+<li>First commercial use of GovCloud</li>
+<li>Cloud resources can protect IP by avoiding centralization: store separate components in different silos/countries</li>
+</ul>
+
+
+<h2>Vogels again</h2>
+
+<ul>
+<li>Healthcare and biotechnology are driven by data</li>
+<li>One of the CDC&#8217;s responsibilities is to collect massive amounts of global data on potential disease trends/risks
+
+<ul>
+<li>Built a open platform (BioSense) to provide real-time data to interested parties</li>
+</ul>
+</li>
+<li>Illumina:
+
+<ul>
+<li>leading provider of DNA sequencing devices</li>
+<li>devices connect directly to AWS to store massive amounts of data</li>
+<li>provides security and encryption tech for both data transfer and storage</li>
+</ul>
+</li>
+<li>1000 Genomes Project
+
+<ul>
+<li>250 TB data</li>
+<li>~2000 complete genomes</li>
+<li>publicly available on S3</li>
+</ul>
+</li>
+<li>Unilever works with Eagle Genomic create deodorant and toothpaste that&#8217;s tailored to your genes</li>
+<li>Hospitality industry:
+
+<ul>
+<li>Hotelogix is a &#8220;property management system&#8221; for boutique hotels</li>
+</ul>
+</li>
+<li>Future of cloud computing and big data (guesses by Vogels):
+
+<ul>
+<li>Trend to real time information</li>
+<li>Deeper integration</li>
+<li>Vertical application of analytics</li>
+<li>Hadoop will become invisible</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>K Young, Mortar</h2>
+
+<ul>
+<li>Big data, &#8220;Hadoop as a Service&#8221; provider</li>
+<li>Company founded in 2011 with 3 co-founders. Accepted to Techstars, took 1.8M seed round.</li>
+<li>Winner of 2013 AWS Global Startup Challenge</li>
+<li>Running 1,000 machines with 18 month runway (from 1.8M seed).</li>
+</ul>
+
+
+<h2>Vogels</h2>
+
+<ul>
+<li>Connected devices
+
+<ul>
+<li>Incredible data collectors/generators</li>
+<li>A treadmill could identify a person from his/her phone and automatically configure itself for that user</li>
+</ul>
+</li>
+<li>Security &amp; Privacy
+
+<ul>
+<li>Incredibly important (possibly most important) concern for developers and engineers</li>
+<li>AWS provides readily available encryption tools to protect customers</li>
+<li>It&#8217;s possible to install a hardware device at AWS data centers, so that even Amazon will not have your keys or be able to decrypt your data</li>
+<li>New feature: Amazon RDS for Oracle now supports transparent data encryption. MS SQL will follow soon.</li>
+</ul>
+</li>
+</ul>
+
+</div>
+
+
+  
+</article>
+
+	<div class="share">
+  <p> If you liked this post, please share it:
+    <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
+    <a class="addthis_button_preferred_1"></a>
+    <a class="addthis_button_preferred_2"></a>
+    <a class="addthis_button_preferred_3"></a>
+    <a class="addthis_button_preferred_4"></a>
+    <a class="addthis_button_compact"></a>
+    </div>
+    <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid="></script>
+  <p> You might also like to <a class="rss" href="http://feeds.feedburner.com/Leknarf" title="RSS">subscribe via RSS</a>
+    or <a class="twitter" href="http://twitter.com/leknarf13" title="Twitter">follow me on Twitter</a>.
+</div>
+
+
+
+<section id="comment">
+    <h1 class="title">Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+
+</div>
+			</div>
+			<footer id="footer" class="inner"><p>
+  Copyright &copy; 2013 - Andrew Frankel -
+  <span class="credit">
+    Powered by <a href="http://octopress.org">Octopress</a>
+    - Design by <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a>
+  </span>
+</p>
+
+</footer>
+			<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'leknarf';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://leknarf.net/blog/2013/04/18/aws-invent-2013-keynote-notes/';
+        var disqus_url = 'http://leknarf.net/blog/2013/04/18/aws-invent-2013-keynote-notes/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-26433526-1']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+
+
+
+		</div>
+	</div>
+</body>
+</html>
