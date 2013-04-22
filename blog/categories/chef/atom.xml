@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: chef | Leknarf]]></title>
+  <link href="http://leknarf.net/blog/categories/chef/atom.xml" rel="self"/>
+  <link href="http://leknarf.net/"/>
+  <updated>2013-04-22T14:45:57-04:00</updated>
+  <id>http://leknarf.net/</id>
+  <author>
+    <name><![CDATA[Andrew Frankel]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Staying sane while writing Chef cookbooks]]></title>
+    <link href="http://leknarf.net/blog/2013/04/22/staying-sane-while-writing-chef-cookbooks/"/>
+    <updated>2013-04-22T16:01:00-04:00</updated>
+    <id>http://leknarf.net/blog/2013/04/22/staying-sane-while-writing-chef-cookbooks</id>
+    <content type="html"><![CDATA[<p>I recently wrapped up a project to refactor all of my chef cookbooks to be more maintainable and coherent. This was my second chef project. The first attempt was reasonably successful: I could create new cloud servers and automatically provision them with a single command. But I didn't have anything resembling a true development or staging environment, so any changes had to be made directly to the production servers. This obviously was not a healthy situation. This post will explain many of the mistakes I made the first time and how I corrected them.</p>
+
+<p>Most of my code is available here: <a href="https://github.com/leknarf/chef_cookbooks">Chef Cookbooks</a>. I'll explain below how to configure these with your project specific settings.</p>
+
+<!-- more -->
+
+
+<h1>Cookbooks and Roles and Databags, Oh My!</h1>
+
+<p>Chef is known to have a steep learning curve, which is partially because of the bewildering range of features it has for defining various configuration settings. Although I'm sure these features are useful in more complicated organizations, they are actually detrimental to a simple project. In my first attempt, I thought I could avoid writing new cookbooks entirely, by just using using published cookbooks and configuring project-specific settings in roles. This was a poor idea.</p>
+
+<p>You cannot avoid writing cookbooks, but it is possible to avoid most of the other advanced features. As they say in the Chef documentation: "A cookbook is the fundamental unit of configuration and policy distribution in Chef." In particular, don't store any settings in roles or databags unless you have a compelling reason. Instead, write "wrapper" cookbooks, following the pattern described here: <a href="http://devopsanywhere.blogspot.com/2012/11/how-to-write-reusable-chef-cookbooks.html">How to write reusable chef cookbooks</a>.</p>
+
+<p>The main advantage of cookbooks over roles and database is versioning: cookbooks have version numbers and you can set a particular environment to use a particular cookbook version. This allows you to use "my_cookbook 1.0.0" on your production nodes, while testing "my_cookbook 1.0.1" on a staging node. To do so, you can create "environments" which specify which cookbook versions apply to a given environment. Environment files also let you set and overwrite attributes: don't do that.</p>
+
+<p>Don't use roles. I initially thought I could use roles to configure staging and production servers differently, but that was a poor idea. Unlike cookbooks, roles don't have any kind of versioning. If you want to test your new configuration in staging before promoting to production, you'll need to copy and paste the changes from the staging role to the production role. That's far more error prone than increasing a cookbook version number.</p>
+
+<p>Data bags are interesting because there's an option to encrypt data bag contents. This may be useful if there are certain credentials you don't want to share with your entire team, but still need to deploy to your servers. Note that those credentials will almost certainly need to be unencrypted on the actual servers, so you're not hiding them from anyone who will have root access to your servers. I don't actually use encrypted data bags, I'm just noting that they exist and might be useful in some contexts. I don't see any reason to use unencrypted data bags.</p>
+
+<h1>A tale of three cookbook types</h1>
+
+<p>My knife.rb file is configured to look for cookbooks in three directories:</p>
+
+<pre><code>#{current_dir}/../vendor_cookbooks
+#{current_dir}/../public_cookbooks
+#{current_dir}/../private_cookbooks
+</code></pre>
+
+<h2>vendor_cookbooks</h2>
+
+<p>These are cookbooks written by other developers which I'm using in my project. Some are <a href="http://community.opscode.com/cookbooks">offical Opscode community</a> cookbooks, others are just useful ones I've found on github. I was previously using <a href="https://github.com/applicationsonline/librarian-chef">Librarian-Chef</a> to manage these, but ran into compatibility issues when installing knife using Bundler. I'm currently just maintaining the vendor_cookbooks directory using git submodules. I've also heard good things about <a href="http://berkshelf.com/">Berkshelf</a>, but haven't used it myself on any projects.</p>
+
+<h2>public_cookbooks</h2>
+
+<p>These are the cookbooks I've written that handle all of the logic related to provisioning a server. They are available on github here: <a href="https://github.com/leknarf/chef_cookbooks">Chef Cookbooks</a>. Even if you don't expect your cookbooks to be useful to others, I still strongly recommend you publish yours in a public repository. Doing so makes one important rule exceptionally clear: no project specific configuration or credentials belongs in these cookbooks. If it isn't reusable, stick it in a private wrapper cookbook.</p>
+
+<h2>private_cookbooks</h2>
+
+<p>Which brings us to the third and final cookbook directory. This is where you'll add any configuration that isn't suitable for public consumption. For example, the <code>recipes/default.rb</code> file in the wrapper cookbook for my main application looks like the following (I've obviously redacted the private settings):</p>
+
+<pre><code>node.normal['rails_app']['database'] = {
+      'adapter' =&gt; 'postgresql',
+      'database' =&gt; 'example_db',
+      'host' =&gt; 'db01.example.com',
+      'port' =&gt; '5432',
+      'username' =&gt; 'example_user',
+      'password' =&gt; 'example_password',
+      'pool' =&gt; '50',
+    }
+
+node.override['rails_app']['git_repo'] = 'git@github.com:example_org/example.git'
+node.override['rails_app']['git_branch'] = 'production'
+
+node.override['rails_app']['workers'] = {
+      :default =&gt; 1,
+    }
+node.override['rails_app']['deploy_dir'] = '/opt/example'
+node.override['rails_app']['unicorn_config'] = '/etc/unicorn/example.rb'
+node.override['rails_app']['user'] = 'example'
+node.override['rails_app']['group'] = 'example'
+node.override['rails_app']['notify_email'] = 'admin@example.com'
+node.override['rails_app']['server_name'] = 'example.com'
+
+node.override['github']['id_rsa'] = &lt;&lt;-EOS
+-----BEGIN RSA PRIVATE KEY-----
+-----END RSA PRIVATE KEY-----
+EOS
+
+include_recipe 'monit_wrapper'
+include_recipe 'fqdn_wrapper' unless Chef::Config[:solo]
+include_recipe 'rails_app'
+
+tt = resources('template[/etc/nginx/nginx.conf]')
+tt.source 'nginx.conf.erb'
+tt.cookbook 'app_wrapper'
+</code></pre>
+
+<p>Notice how this cookbooks contains fields like the database password and an SSH private key for deployment. You may prefer to store these in an encrypted databag, but I'm comfortable keeping them in a plain-text cookbook and only sharing the repo with trusted team members.</p>
+
+<p>Also notice how you can override templates (such as nginx.conf) that have been defined in a public cookbook.</p>
+
+<h1>Just use recipes and templates</h1>
+
+<p>Readers with a little chef experience might have noticed that I'm setting attributes in a recipe file and completely ignoring the concept of an <a href="http://docs.opscode.com/essentials_cookbook_attribute_files.html">attribute file</a>. There's an undocumented gotcha with attribute names that doesn't work well with our wrapper convention: the attribute files in a cookbook named "some_cookbook" must start with the string "some_cookbook". You cannot set an attribute like <code>default["some_cookbook"]["my_setting"]</code> in an attribute file in a cookbook named "some_cookbook_wrapper". That's subtle and confusing, which is reason enough in my option to just avoid using attribute files altogether.</p>
+
+<p>Similarly, I haven't used any cookbook features such as resources, definitions, or libraries. I put all of my logic in a recipe file (specifically, the "default.rb" recipe) and add templates as necessary. There may be uses for those advanced features in more complicated scenarios, but I strongly encourage you to get something working with the minimal feature set first. This is friendlier to Chef newbies, who won't have to learn the whole range of options just to understand your code.</p>
+
+<h1>Defining roles</h1>
+
+<p>Although I don't use roles, I obviously still need a way to define what cookbooks apply to a application server as opposed to a database server. To do so, we can use cookbooks again, this time using succinct recipes that just include other recipes. For example, my production app server looks contains just three lines:</p>
+
+<pre><code>include_recipe 'base_wrapper'
+include_recipe 'redis::server_package'
+include_recipe 'rails_app_wrapper'
+</code></pre>
+
+<p>All of the real configuration happens in the wrapper cookbooks. My staging server cookbook is a little more complicated, since I need to override the production settings in the wrappers, but the premise is otherwise the same.</p>
+
+<h1>Stick a spork in it</h1>
+
+<p><a href="https://github.com/jonlives/knife-spork">Knife spork</a> is an exceptionally useful knife plugin. I'd actually consider it essential to the process. The project page describes it as a tool "which helps multiple developers work on the same Chef Server and repository without treading on each other's toes." But even working alone, I find it reassuring to know that I'm protected from accidentally pushing out a series of half-baked changes to every production server.</p>
+
+<p>I use three knife spork commands repeatedly while testing in a staging environment.</p>
+
+<pre><code>knife spork bump $cookbook_name
+knife spork upload $cookbook_name
+knife spork promote $cookbook_name --remote
+</code></pre>
+
+<p>The "bump" command increments the cookbook version number. The "upload" command not only uploads the cookbook to the chef server, but also locks it. If you try to upload a change without first running "bump", it will report an error.</p>
+
+<p>In my spork-config.yml file, I have the "default_environments" configured so that <code>knife spork promote</code> will only update the staging environment. I manually promote to production once everything is throughly tested.</p>
+
+<h1>Test all the things</h1>
+
+<p>Following the patterns makes it straightforward to test extensively. I start by creating a local VM using Vagrant. Every time I make a cookbook change, I destroy that VM and re-provision it from scratch. This ensures there aren't any artifacts left over from previous chef runs. Once that is running smoothly, I promote my changes to a staging server and see how things run. After a few incident-free days, I'll promote the production cookbook version numbers.</p>
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,317 @@
+
+<!DOCTYPE HTML>
+<html xmlns:fb="http://ogp.me/ns/fb#">
+<head>
+	<meta charset="utf-8">
+	<title>Staying sane while writing Chef cookbooks - Leknarf</title>
+	<meta name="author" content="Andrew Frankel">
+
+	
+	<meta name="description" content="I recently wrapped up a project to refactor all of my chef cookbooks to be more maintainable and coherent. This was my second chef project. The first &hellip;">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="http://feeds.feedburner.com/Leknarf" rel="alternate" title="Leknarf" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://leknarf.net/blog/2013/04/22/staying-sane-while-writing-chef-cookbooks/">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700' rel='stylesheet' type='text/css'>
+	<!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+	
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-26433526-1']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+
+  <!-- AddThis Analytics -->
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=undefined"></script>
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><div class="profilepic">
+  <img alt="Profile Picture" src="/images/avatar.jpg" style="width: 160px;">
+</div>
+<h1><a href="/">Leknarf</a></h1>
+<p class="subtitle">Startup engineering</p>
+<nav id="main-nav"><ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/photography">Photography</a></li>
+  <li><a href="http://topshelfclothes.com">My Startup</a></li>
+</ul>
+</nav>
+<nav id="sub-nav">
+  <div class="social">
+    
+    
+    <a class="google" href="https://plus.google.com/107662133153476964169?rel=author" title="Google+">Google+</a>
+    
+    
+    <a class="twitter" href="http://twitter.com/leknarf13" title="Twitter">Twitter</a>
+    
+    
+    <a class="github" href="https://github.com/leknarf" title="GitHub">GitHub</a>
+    
+    
+    <a class="linkedin" href="http://www.linkedin.com/in/andrewdathanfrankel">LinkedIn</a>
+    
+    
+    
+    
+    
+    <a class="rss" href="http://feeds.feedburner.com/Leknarf" title="RSS">RSS</a>
+    
+  </div>
+</nav>
+
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			
+				
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner"><article class="post">
+  
+	<h1 class="title">Staying Sane While Writing Chef Cookbooks</h1>
+  
+    <div class="share_small clearfix">
+    <div class="addthis_toolbox addthis_default_style addthis_default_style">
+    <a class="addthis_button_preferred_1"></a>
+    <a class="addthis_button_preferred_2"></a>
+    <a class="addthis_button_preferred_3"></a>
+    <a class="addthis_button_preferred_4"></a>
+    <a class="addthis_button_compact"></a>
+    </div>
+    <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid="></script>
+</div>
+
+  
+	<div class="entry-content"><p>I recently wrapped up a project to refactor all of my chef cookbooks to be more maintainable and coherent. This was my second chef project. The first attempt was reasonably successful: I could create new cloud servers and automatically provision them with a single command. But I didn&#8217;t have anything resembling a true development or staging environment, so any changes had to be made directly to the production servers. This obviously was not a healthy situation. This post will explain many of the mistakes I made the first time and how I corrected them.</p>
+
+<p>Most of my code is available here: <a href="https://github.com/leknarf/chef_cookbooks">Chef Cookbooks</a>. I&#8217;ll explain below how to configure these with your project specific settings.</p>
+
+<!-- more -->
+
+
+<h1>Cookbooks and Roles and Databags, Oh My!</h1>
+
+<p>Chef is known to have a steep learning curve, which is partially because of the bewildering range of features it has for defining various configuration settings. Although I&#8217;m sure these features are useful in more complicated organizations, they are actually detrimental to a simple project. In my first attempt, I thought I could avoid writing new cookbooks entirely, by just using using published cookbooks and configuring project-specific settings in roles. This was a poor idea.</p>
+
+<p>You cannot avoid writing cookbooks, but it is possible to avoid most of the other advanced features. As they say in the Chef documentation: &#8220;A cookbook is the fundamental unit of configuration and policy distribution in Chef.&#8221; In particular, don&#8217;t store any settings in roles or databags unless you have a compelling reason. Instead, write &#8220;wrapper&#8221; cookbooks, following the pattern described here: <a href="http://devopsanywhere.blogspot.com/2012/11/how-to-write-reusable-chef-cookbooks.html">How to write reusable chef cookbooks</a>.</p>
+
+<p>The main advantage of cookbooks over roles and database is versioning: cookbooks have version numbers and you can set a particular environment to use a particular cookbook version. This allows you to use &#8220;my_cookbook 1.0.0&#8221; on your production nodes, while testing &#8220;my_cookbook 1.0.1&#8221; on a staging node. To do so, you can create &#8220;environments&#8221; which specify which cookbook versions apply to a given environment. Environment files also let you set and overwrite attributes: don&#8217;t do that.</p>
+
+<p>Don&#8217;t use roles. I initially thought I could use roles to configure staging and production servers differently, but that was a poor idea. Unlike cookbooks, roles don&#8217;t have any kind of versioning. If you want to test your new configuration in staging before promoting to production, you&#8217;ll need to copy and paste the changes from the staging role to the production role. That&#8217;s far more error prone than increasing a cookbook version number.</p>
+
+<p>Data bags are interesting because there&#8217;s an option to encrypt data bag contents. This may be useful if there are certain credentials you don&#8217;t want to share with your entire team, but still need to deploy to your servers. Note that those credentials will almost certainly need to be unencrypted on the actual servers, so you&#8217;re not hiding them from anyone who will have root access to your servers. I don&#8217;t actually use encrypted data bags, I&#8217;m just noting that they exist and might be useful in some contexts. I don&#8217;t see any reason to use unencrypted data bags.</p>
+
+<h1>A tale of three cookbook types</h1>
+
+<p>My knife.rb file is configured to look for cookbooks in three directories:</p>
+
+<pre><code>#{current_dir}/../vendor_cookbooks
+#{current_dir}/../public_cookbooks
+#{current_dir}/../private_cookbooks
+</code></pre>
+
+<h2>vendor_cookbooks</h2>
+
+<p>These are cookbooks written by other developers which I&#8217;m using in my project. Some are <a href="http://community.opscode.com/cookbooks">offical Opscode community</a> cookbooks, others are just useful ones I&#8217;ve found on github. I was previously using <a href="https://github.com/applicationsonline/librarian-chef">Librarian-Chef</a> to manage these, but ran into compatibility issues when installing knife using Bundler. I&#8217;m currently just maintaining the vendor_cookbooks directory using git submodules. I&#8217;ve also heard good things about <a href="http://berkshelf.com/">Berkshelf</a>, but haven&#8217;t used it myself on any projects.</p>
+
+<h2>public_cookbooks</h2>
+
+<p>These are the cookbooks I&#8217;ve written that handle all of the logic related to provisioning a server. They are available on github here: <a href="https://github.com/leknarf/chef_cookbooks">Chef Cookbooks</a>. Even if you don&#8217;t expect your cookbooks to be useful to others, I still strongly recommend you publish yours in a public repository. Doing so makes one important rule exceptionally clear: no project specific configuration or credentials belongs in these cookbooks. If it isn&#8217;t reusable, stick it in a private wrapper cookbook.</p>
+
+<h2>private_cookbooks</h2>
+
+<p>Which brings us to the third and final cookbook directory. This is where you&#8217;ll add any configuration that isn&#8217;t suitable for public consumption. For example, the <code>recipes/default.rb</code> file in the wrapper cookbook for my main application looks like the following (I&#8217;ve obviously redacted the private settings):</p>
+
+<pre><code>node.normal['rails_app']['database'] = {
+      'adapter' =&gt; 'postgresql',
+      'database' =&gt; 'example_db',
+      'host' =&gt; 'db01.example.com',
+      'port' =&gt; '5432',
+      'username' =&gt; 'example_user',
+      'password' =&gt; 'example_password',
+      'pool' =&gt; '50',
+    }
+
+node.override['rails_app']['git_repo'] = 'git@github.com:example_org/example.git'
+node.override['rails_app']['git_branch'] = 'production'
+
+node.override['rails_app']['workers'] = {
+      :default =&gt; 1,
+    }
+node.override['rails_app']['deploy_dir'] = '/opt/example'
+node.override['rails_app']['unicorn_config'] = '/etc/unicorn/example.rb'
+node.override['rails_app']['user'] = 'example'
+node.override['rails_app']['group'] = 'example'
+node.override['rails_app']['notify_email'] = 'admin@example.com'
+node.override['rails_app']['server_name'] = 'example.com'
+
+node.override['github']['id_rsa'] = &lt;&lt;-EOS
+-----BEGIN RSA PRIVATE KEY-----
+-----END RSA PRIVATE KEY-----
+EOS
+
+include_recipe 'monit_wrapper'
+include_recipe 'fqdn_wrapper' unless Chef::Config[:solo]
+include_recipe 'rails_app'
+
+tt = resources('template[/etc/nginx/nginx.conf]')
+tt.source 'nginx.conf.erb'
+tt.cookbook 'app_wrapper'
+</code></pre>
+
+<p>Notice how this cookbooks contains fields like the database password and an SSH private key for deployment. You may prefer to store these in an encrypted databag, but I&#8217;m comfortable keeping them in a plain-text cookbook and only sharing the repo with trusted team members.</p>
+
+<p>Also notice how you can override templates (such as nginx.conf) that have been defined in a public cookbook.</p>
+
+<h1>Just use recipes and templates</h1>
+
+<p>Readers with a little chef experience might have noticed that I&#8217;m setting attributes in a recipe file and completely ignoring the concept of an <a href="http://docs.opscode.com/essentials_cookbook_attribute_files.html">attribute file</a>. There&#8217;s an undocumented gotcha with attribute names that doesn&#8217;t work well with our wrapper convention: the attribute files in a cookbook named &#8220;some_cookbook&#8221; must start with the string &#8220;some_cookbook&#8221;. You cannot set an attribute like <code>default["some_cookbook"]["my_setting"]</code> in an attribute file in a cookbook named &#8220;some_cookbook_wrapper&#8221;. That&#8217;s subtle and confusing, which is reason enough in my option to just avoid using attribute files altogether.</p>
+
+<p>Similarly, I haven&#8217;t used any cookbook features such as resources, definitions, or libraries. I put all of my logic in a recipe file (specifically, the &#8220;default.rb&#8221; recipe) and add templates as necessary. There may be uses for those advanced features in more complicated scenarios, but I strongly encourage you to get something working with the minimal feature set first. This is friendlier to Chef newbies, who won&#8217;t have to learn the whole range of options just to understand your code.</p>
+
+<h1>Defining roles</h1>
+
+<p>Although I don&#8217;t use roles, I obviously still need a way to define what cookbooks apply to a application server as opposed to a database server. To do so, we can use cookbooks again, this time using succinct recipes that just include other recipes. For example, my production app server looks contains just three lines:</p>
+
+<pre><code>include_recipe 'base_wrapper'
+include_recipe 'redis::server_package'
+include_recipe 'rails_app_wrapper'
+</code></pre>
+
+<p>All of the real configuration happens in the wrapper cookbooks. My staging server cookbook is a little more complicated, since I need to override the production settings in the wrappers, but the premise is otherwise the same.</p>
+
+<h1>Stick a spork in it</h1>
+
+<p><a href="https://github.com/jonlives/knife-spork">Knife spork</a> is an exceptionally useful knife plugin. I&#8217;d actually consider it essential to the process. The project page describes it as a tool &#8220;which helps multiple developers work on the same Chef Server and repository without treading on each other&#8217;s toes.&#8221; But even working alone, I find it reassuring to know that I&#8217;m protected from accidentally pushing out a series of half-baked changes to every production server.</p>
+
+<p>I use three knife spork commands repeatedly while testing in a staging environment.</p>
+
+<pre><code>knife spork bump $cookbook_name
+knife spork upload $cookbook_name
+knife spork promote $cookbook_name --remote
+</code></pre>
+
+<p>The &#8220;bump&#8221; command increments the cookbook version number. The &#8220;upload&#8221; command not only uploads the cookbook to the chef server, but also locks it. If you try to upload a change without first running &#8220;bump&#8221;, it will report an error.</p>
+
+<p>In my spork-config.yml file, I have the &#8220;default_environments&#8221; configured so that <code>knife spork promote</code> will only update the staging environment. I manually promote to production once everything is throughly tested.</p>
+
+<h1>Test all the things</h1>
+
+<p>Following the patterns makes it straightforward to test extensively. I start by creating a local VM using Vagrant. Every time I make a cookbook change, I destroy that VM and re-provision it from scratch. This ensures there aren&#8217;t any artifacts left over from previous chef runs. Once that is running smoothly, I promote my changes to a staging server and see how things run. After a few incident-free days, I&#8217;ll promote the production cookbook version numbers.</p>
+</div>
+
+
+  
+</article>
+
+	<div class="share">
+  <p> If you liked this post, please share it:
+    <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
+    <a class="addthis_button_preferred_1"></a>
+    <a class="addthis_button_preferred_2"></a>
+    <a class="addthis_button_preferred_3"></a>
+    <a class="addthis_button_preferred_4"></a>
+    <a class="addthis_button_compact"></a>
+    </div>
+    <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid="></script>
+  <p> You might also like to <a class="rss" href="http://feeds.feedburner.com/Leknarf" title="RSS">subscribe via RSS</a>
+    or <a class="twitter" href="http://twitter.com/leknarf13" title="Twitter">follow me on Twitter</a>.
+</div>
+
+
+
+<section id="comment">
+    <h1 class="title">Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+
+</div>
+			</div>
+			<footer id="footer" class="inner"><p>
+  Copyright &copy; 2013 - Andrew Frankel -
+  <span class="credit">
+    Powered by <a href="http://octopress.org">Octopress</a>
+    - Design by <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a>
+  </span>
+</p>
+
+</footer>
+			<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'leknarf';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://leknarf.net/blog/2013/04/22/staying-sane-while-writing-chef-cookbooks/';
+        var disqus_url = 'http://leknarf.net/blog/2013/04/22/staying-sane-while-writing-chef-cookbooks/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-26433526-1']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+
+
+
+		</div>
+	</div>
+</body>
+</html>
