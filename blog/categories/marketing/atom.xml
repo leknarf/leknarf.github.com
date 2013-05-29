@@ -4,7 +4,7 @@
   <title><![CDATA[Category: marketing | Leknarf]]></title>
   <link href="http://leknarf.net/blog/categories/marketing/atom.xml" rel="self"/>
   <link href="http://leknarf.net/"/>
-  <updated>2013-04-22T14:45:57-04:00</updated>
+  <updated>2013-05-29T08:45:07-04:00</updated>
   <id>http://leknarf.net/</id>
   <author>
     <name><![CDATA[Andrew Frankel]]></name>
@@ -12,6 +12,40 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Don't limit people to business or technical roles]]></title>
+    <link href="http://leknarf.net/blog/2013/05/18/dont-limit-people-to-business-or-technical-roles/"/>
+    <updated>2013-05-18T17:48:00-04:00</updated>
+    <id>http://leknarf.net/blog/2013/05/18/dont-limit-people-to-business-or-technical-roles</id>
+    <content type="html"><![CDATA[<p>Startup founders and employees often describe their role as being either a Business or Technical. Developers, designers, QA testers, etc. are grouped together as part of the engineering/technical team, while product managers, sales, and marketers are part of the business team.</p>
+
+<p>Although common, this division misses the point: there are two essential functions for product company and neither is strictly business or strictly technical. Specifically, these are:</p>
+
+<ol>
+<li>Identify a market of people with similar problems, a willingness to pay someone to solve those problems, and the ability to pay for that solution.</li>
+<li>Create a product that solves or alleviates a problem, in a repeatable manner, at a cost that is less than the value it provides.</li>
+</ol>
+
+
+<!-- more -->
+
+
+<h2>The Marketing and Product roles/teams</h2>
+
+<p>I like to refer to the first function as marketing, given that the focus is on identifying a viable market. In this sense, I'm following <a href="http://leknarf.net/blog/2013/03/01/startups-should-spend-more-on-marketing-than-engineering/">Grabowski's definition of marketing</a>. This distinguishes the term "marketing" from promotion or sales activates, which are focused on finding customers for an existing solution or convincing potential customers to pay for that solution. Lean Startup adherents might prefer the term "customer development" instead of marketing, but I use the two interchangeably. At it simplest, marketing is about identifying a problem, then verifying that someone is both willing and able to pay for something that alleviates that problem.</p>
+
+<p>Everything related to solving that problem is product development, including all software development, requirements gathering, design work, etc.. As a developer, I usually find it easiest to explain my ideas about how to solve a problem using code. My initial idea for how to approach a problem is almost never the correct one, so I find it easier to build a small prototype that I can interact with and improve iteratively. Other people might find it easier to express their thoughts in wireframes, presentation decks, or even by writing detailed spec documents. Regardless, the focus here is on creating a solution.</p>
+
+<h2>Sharing responsibility by defining roles</h2>
+
+<p>Defining roles this way can help the marketing and product teams have healthy conversations about where their responsibilities intersect. Everyone at a startup needs to contribute to discovering a viable business model. Delegating this responsibility to a single business co-founder or a siloed team can be disastrous. Instead, the marketing and product teams should focus on their specialities and then discuss the results. Marketing's responsibility is to estimate that a given market will be worth X dollars. Product's responsibility is to estimate that a given solution will cost Y dollars to produce. If X is greater than Y and your estimates are correct, then you might have a viable business model! If not, then your company needs to find a better market, figure out a cheaper product, or both.</p>
+
+<h2>Avoid distractions</h2>
+
+<p>Defining roles in this way can help avoid distractions. Skilled individuals are usually very well practiced at activities they enjoy doing. Experienced marketers usually enjoy the company of other people and can easily fill a schedule with meetings and conversations. Likewise, It's tempting, even enjoyable, for a programmer to spend months building a perfectly crafted engineering marvel. But in both cases, if those activities aren't directed at finding a problem or figuring out a solution, they are ultimately wasted efforts.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Startups should spend more on marketing than engineering]]></title>
