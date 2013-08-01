@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: employment | Leknarf]]></title>
+  <link href="http://leknarf.net/blog/categories/employment/atom.xml" rel="self"/>
+  <link href="http://leknarf.net/"/>
+  <updated>2013-08-01T10:21:58-04:00</updated>
+  <id>http://leknarf.net/</id>
+  <author>
+    <name><![CDATA[Andrew Frankel]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[What is a Permanent Employee?]]></title>
+    <link href="http://leknarf.net/blog/2013/08/01/what-is-a-permanent-employee/"/>
+    <updated>2013-08-01T08:00:00-04:00</updated>
+    <id>http://leknarf.net/blog/2013/08/01/what-is-a-permanent-employee</id>
+    <content type="html"><![CDATA[<p>The hiring market for developers is exceptionally tight right now. Just about every tech presentation ends with a "We're hiring!" slide and any developer with a linkedin profile probably gets a few recruiter messages a week. Even unexperienced coders are in-demand: bootcamp-style developer classes run 10-12 weeks and usually have placement rates above 80%.</p>
+
+<p>What's surprising to me is how focused this attention is on filling so-called "permanent" roles. That is, full-time, salaried positions where a developer works exclusively for a single employer. Despite the shortage of developer talent, employers seem hesitant to consider working with freelancers or external consultancies. That's particularly confusing when you consider the high cost of working with a recruiter, which is the standard solution for most companies that can't hire quickly enough. Instead of paying a recruiter over $20,000 to fill a position, I would rather pay a freelancer to fill in the gaps in my team.</p>
+
+<p>There are valid reasons to prefer in-house employees over contractors. But some of the conventional wisdom is merely cultural inertia. I describe some of the factors to consider below:</p>
+
+<!-- more -->
+
+
+<h2>Two types of freelancers</h2>
+
+<p>Part of the trouble with considering freelancers is in the name. There are two big categories of people who call themselves freelancers, which are very different working models:</p>
+
+<ol>
+<li>People who have a day job and moonlight on nights and weekends</li>
+<li>People who freelance full-time as their primary job.</li>
+</ol>
+
+
+<p>I dislike working with the former, since it's obvious that your project will always be secondary to their day job. And even well motivated developers are subject to burnout. It's just not feasible for someone to be creative or innovative after he's already spent the most productive hours of his day working on something else.</p>
+
+<p><span class='pullquote-right' data-pullquote='Regardless of whether you pay them a salary or contract rate, someone working 40 hours a week is doing full-time work.'>
+But a full-time freelancer can be a valuable complement to an in-house team, provided that freelancer is able to commit to working standard full-time hours. Context switching while writing software can be very distracting and can easily erode a developer's productivity. I wouldn't want to work on a project 10 hours a week: there just isn't enough time for me to get up to speed. Full-time work is different. Regardless of whether you pay them a salary or contract rate, someone working 40 hours a week is doing full-time work. This is an oddly obvious statement, but the term "full-time" is often misused to refer exclusively to salaried roles.
+</span></p>
+
+<p>The important criterion for working with any developer (in-house or outsourced) is that the developer will be available for ongoing work in the future. Any piece of custom software development will need ongoing maintenance, which is usually best handled by the original author. So if you're going to work with someone, you need reasonable assurances that the same individual developer will be available for additional work 3, 6, etc. months down the road.</p>
+
+<h2>Open-ended relationships</h2>
+
+<p>There's a underlying assumption that hiring someone in-house solves the maintenance problem. If someone accepts a salaried position at your company, it's natural to assume he'll continue working in that position indefinitely. Salaried roles are even described as "permanent", which is an odd cultural quirk considering how unusual it is to see someone stay with a single company more than 4 years. The term "permanent" is obviously an overstatement: salaried developers can and will leave their jobs at will. And salaried developers will almost always look for another salaried position when they leave your employ. If you want to hire them for an occasional maintenance project, you'll have to first convince them to start moonlighting (some people simply won't) and then accept whatever hours they can schedule around their day job.</p>
+
+<p><span class='pullquote-right' data-pullquote='Ironically, the default path for a &#8220;permanent&#8221; employee is to eventually leave. The default path for a &#8220;temporary&#8221; employee is to continuously refine their role.'>
+A healthy relationship with a freelancer is the closest you'll likely to get to having a permanent business relationship with an employee. Unlike salaried employees, freelancers can accept new clients without ending their relationship with their current ones. This fundamentally changes the nature of the business relationship. Freelancers can explore new interests or change their work habits to meet personal/familial needs without disrupting their entire professional lives. Freelancers with multiple clients can also weather their employers' business troubles, which makes them better suited to work with high-risk startups. Furloughs are disastrous if you only have one income source, but workaday for freelancers. Salaried employees have to look for a new position if their situation changes. Ironically, the default path for a "permanent" employee is to eventually leave. The default path for a "temporary" employee is to continuously refine their role.
+</span></p>
+
+<h2>You build a permanent relationship</h2>
+
+<p>I don't mean to suggest that every employee is on the verge of submitting his two-week-notice. There are certainly many people people who have worked long and fulfilling careers with a single company. The important point to realize is that no-one signs up for a 30-year stint in a single position. Those sorts of lengthly tenures are built one year at a time.</p>
+
+<p>The same steps that let companies retain in-house employees lets them retain freelancers. People who enjoy working with you will continue to do so, regardless of the legal structure of their employment.</p>
+]]></content>
+  </entry>
+  
+</feed>
