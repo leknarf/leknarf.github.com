@@ -3,11 +3,11 @@
 <html xmlns:fb="http://ogp.me/ns/fb#">
 <head>
 	<meta charset="utf-8">
-	<title>Find out when to post on hacker news - Leknarf</title>
+	<title>Load testing a rails app with apache bench - Leknarf</title>
 	<meta name="author" content="Andrew Frankel">
 
 	
-	<meta name="description" content="As part of my efforts to promote this new blog, I&#8217;ve been submitting posts to hacker news. Not surprisingly, my initial submissions went &hellip;">
+	<meta name="description" content="In preparation for a public launch, we ran a cursory load test to ensure that our rails application could handle a reasonable amount of traffic. &hellip;">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -17,7 +17,7 @@
 
 	<link href="http://feeds.feedburner.com/Leknarf" rel="alternate" title="Leknarf" type="application/atom+xml">
 	
-	<link rel="canonical" href="http://leknarf.net/blog/2013/03/13/find-out-when-to-post-on-hacker-news/">
+	<link rel="canonical" href="http://leknarf.net/blog/2013/08/30/load-testing-a-rails-app-with-apache-bench/">
 	<link href="/favicon.png" rel="shortcut icon">
 	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
 	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
@@ -96,7 +96,7 @@
 			<div class="mid-col-container">
 				<div id="content" class="inner"><article class="post">
   
-	<h1 class="title">Find Out When to Post on Hacker News</h1>
+	<h1 class="title">Load Testing a Rails App With Apache Bench</h1>
   
     <div class="share_small clearfix">
     <div class="addthis_toolbox addthis_default_style addthis_default_style">
@@ -111,48 +111,75 @@
 </div>
 
   
-	<div class="entry-content"><p>As part of my efforts to <a href="/blog/2013/02/09/a-blog-is-a-mini-startup/">promote this new blog</a>, I&#8217;ve been submitting posts to <a href="news.ycombinator.com">hacker news</a>. Not surprisingly, my initial submissions went roughly nowhere. Less than 100 visitors saw the posts.</p>
+	<div class="entry-content"><p>In preparation for a public launch, we ran a cursory load test to ensure that our rails application could handle a reasonable amount of traffic. Apache Bench is very easy to use, but the initial setup is a little confusing, especially if your site requires users to log in.</p>
 
-<p>Stepping back, I decided to think a little more about timing my submissions to get better results. <a href="http://hnpickup.appspot.com/">HN Pickup Ratio</a> looked like a nice representation of the relevant factors, but it is sadly defunct, as App Engine has been blocked from scraping hacker news. I liked the concept enough to write my own implementation, which is now available here: <a href="http://hnnotify.leknarf.net">HN Notify</a>.</p>
+<h1>Collecting a cookie</h1>
 
-<p>Timing my <a href="https://news.ycombinator.com/item?id=5335241">last submission</a> was exceptionally successful: it reached the front page of hacker news and was seen by 3,000 readers.</p>
+<p>The first step is to log into our website and store the cookie, so we can use it to make requests as an authenticated user.</p>
 
-<h2>Concept</h2>
+<p>Rails uses an authenticity token to protect the login page from CSRF attacks, so <a href="http://robots.thoughtbot.com/post/3035393350/curling-with-rails-authenticity-token">collecting a cookie with cURL</a> is a bit of a hassle. We&#8217;ll first need to capture the authenticity token:</p>
 
-<p>Assuming you want your HN submission to reach the front page, then it&#8217;s important to post at times when scores on the new page are relatively high compared to the front page.</p>
+<pre><code>LOGIN\_PAGE=https://staging.example.com/sign_in
+curl --cookie-jar cookie_file $LOGIN\_PAGE | grep csrf-token
+</code></pre>
 
 <!-- more -->
 
 
-<p>This assumes your goal is to reach the front page. I don&#8217;t actually know how many people skim over the &#8216;new&#8217; links, but it&#8217;s fairly obvious that a far greater number of people only look at the first 30 links on the home page.</p>
+<p>This will create a new cookie file (named cookie_file) and spit out some HTML that looks something like:</p>
 
-<p>For the purposes of discussion, I&#8217;m going to assume a very simplistic model of the HN front page: new stories with more points will outrank older stories with less points. That is, I&#8217;m ignoring any effects existing karma has on a user&#8217;s submission and any factors related to when a story gets upvotes. If we assume that a new story needs to get more points than an existing story in order to replace it on the front page, then the following is straightforward:</p>
+<pre><code>&lt;meta content="sA8/Nm69coJl2iyA+6SG6MIyGmQ4FnBGYZqNTrY/29E=" name="csrf-token" /&gt;
+</code></pre>
 
-<ul>
-<li>It&#8217;s a good time to submit when scores on the front page are low. If the lowest-ranked story has 10 points, it will be much easier to replace than if the lowest-ranked story has 100 points.</li>
-<li>It&#8217;s a good time to post when scores on the new page are high. If the highest-ranked story on the new page only has 2 points, it doesn&#8217;t seem likely that your submission will fare much better.</li>
-</ul>
+<p>We want to store the value of the content attribute from this csrf-token tag:</p>
 
+<pre><code>TOKEN=sA8/Nm69coJl2iyA+6SG6MIyGmQ4FnBGYZqNTrY/29E=
+</code></pre>
 
-<h2>Differences from HN Pickup</h2>
+<p>Next, we want to submit the login form, including the authenticity token as an additional url encoded value:</p>
 
-<p>HN Pickup introduced this concept of comparing the lowest-front-page with the highest-new-page scores. It graphs the mean of the last 6 data points in each category along with the ratio of the two averages. From what I&#8217;ve seen, it&#8217;s fairly rare for new page scores to exceed those on the front page, so I&#8217;m just considering the difference between the two. I also don&#8217;t think the mean is an appropriate statistic, given how easy it is for extremely popular submissions to skew the results. Instead, I&#8217;m using the second-highest and second-lowest scores. This provides some protection against outliers.</p>
+<pre><code>EMAIL=andrew@example.com
+PASSWORD=MYSUPERSECRETPASSWORD
+curl  --cookie cookie_file \
+      --cookie-jar cookie_file \
+      --data "user[email]=$EMAIL&amp;user[password]=$PASSWORD" \
+      --data-urlencode authenticity_token=$TOKEN \
+      $LOGIN_PAGE
+</code></pre>
 
-<p>I disliked the idea of compulsively watching a graph update, so I added an alert mechanism. If you follow <a href="https://twitter.com/HNNotify">@HNNotify</a> on twitter, you&#8217;ll be able to receive notifications of opportune submission times. It won&#8217;t post more than once an hour and also ignores times when the high score on the front page is less than 10, which reduces the noise in the feed.</p>
+<p>Notice that we need to pass both the <code>--cookie</code> and <code>--cookie-jar</code> options. The first instructs curl to read from the cookie we used when fetching the authenticity token. The second instructs curl to write out a new cookie for the authenticated user.</p>
 
-<p>When you are compulsively waiting for a submission window, it&#8217;s nice to see the chart update in real-time. This chart updates automatically, without refreshing the page.</p>
+<p>We can test that this cookie is actually valid by attempting to fetch an internal page:</p>
 
-<p>Since HN Pickup was blocked, I don&#8217;t want to scrape HN directly. Instead, this uses the Unofficial Hacker News API as its data source, which has been reliable so far.</p>
+<pre><code>INTERNAL\_PAGE=https://staging.example.com/page_that_requires_log_in/
+curl --cookie cookie_file $INTERNAL\_PAGE
+</code></pre>
 
-<h2>Architecture &amp; Implementation</h2>
+<h1>Extracting the cookie for Ab</h1>
 
-<p>This sort of real-time data scraping/representation is a great fit for <a href="https://www.firebase.com/">Firebase</a>, which is a very exciting hosted database service. They provide a REST API that lets you write and read data from anywhere, which means I don&#8217;t need to run a web server. Instead, the project frontend is an entirely static page running on Github Pages, which fetches updated data directly from Firebase using javascript.</p>
+<p>The cookie file produced by cURL will look something like the following:</p>
 
-<p>The backend is a simple python script running on Heroku. This handles polling the HN API, writing the data to Firebase, and sending notifications to twitter.</p>
+<pre><code>  # Netscape HTTP Cookie File
+  # http://curl.haxx.se/rfc/cookie_spec.html
+  # This file was generated by libcurl! Edit at your own risk.
 
-<p>The result is a very maintainable weekend project that doesn&#8217;t actually require me to run any servers. Firebase, Github Pages, Heroku, and Twitter handle all of the responsibilities I&#8217;d usually need a server for, without forcing me to deal with security, scalability, or monitoring.</p>
+  staging.example.com   FALSE   /   TRUE    0   request_method  POST
+  #HttpOnly_staging.example.com FALSE   /   TRUE    0   _example_session    BAh7CkkiD3Nlc3Npb25faWQGOgZFVEkiJTIxNTM0YmVmMjO2MmFmMTdhOTc0NzMzYjYxODI3NjBjBjsAVEkiEF9jc5JmX3Rva2VuBjsARkkiMW5lRGFSUnJKMnROOVJpNnd5VHBZeG14ZVdpSSt0RkJiSHXPdVZyVTNJM0U9BjsARkkiGXdhcmRlbi51c2VyLnVzZXIua2V5BjsAVFsISSIJVXNlcgY7AEZbBmk3SSIiJDJhJDE0JHdGcnU5a0ppYnVYdHFOUU5JNUJ0c3UGOwBUSSIcX3R1cmJvbGlua3NfcmVkaXJlY3RfdG8GOwBGSSIiaHR0cHM6Ly2zdGFnaW5nLmNhc2VmbGV4LmNvbS8GOwBUSSIKZmxhc2gGOwBUbzolJWN0aW9uRGlzcGF0Y2g0OkZsYXNoOjpGbGFzaEhhc2gJOgpAdXNlZG86CFNldAY6CkBoYXNoewY6C25vdGljZVQ6DEBjbG9zZWRGOg1AZmxhc2hlc3sHOwpJIhxTaWduZWQgaW4gc3VjY2Vzc2Z1bGx5LgY7AFQ6CmFsZXJ0SSIfWW91IGFyZSBhbHJlYWR5IHNpZ25lZCBpbi4GOwBUOglAbm93MA%3D%3D--0c95f2ed9c26e106bc0cf48d405e33e8288ba739
+</code></pre>
 
-<p>Source code is available on <a href="https://github.com/leknarf/hn-notify">Github</a>.</p>
+<p>We want to extract everything following that &#8220;_example_session&#8221; key:</p>
+
+<pre><code>COOKIE="_example_session=BAh7CkkiD3Nlc3Npb25faWQGOgZFVEkiJTIxNTM0YmVmMjO2MmFmMTdhOTc0NzMzYjYxODI3NjBjBjsAVEkiEF9jc5JmX3Rva2VuBjsARkkiMW5lRGFSUnJKMnROOVJpNnd5VHBZeG14ZVdpSSt0RkJiSHXPdVZyVTNJM0U9BjsARkkiGXdhcmRlbi51c2VyLnVzZXIua2V5BjsAVFsISSIJVXNlcgY7AEZbBmk3SSIiJDJhJDE0JHdGcnU5a0ppYnVYdHFOUU5JNUJ0c3UGOwBUSSIcX3R1cmJvbGlua3NfcmVkaXJlY3RfdG8GOwBGSSIiaHR0cHM6Ly2zdGFnaW5nLmNhc2VmbGV4LmNvbS8GOwBUSSIKZmxhc2gGOwBUbzolJWN0aW9uRGlzcGF0Y2g0OkZsYXNoOjpGbGFzaEhhc2gJOgpAdXNlZG86CFNldAY6CkBoYXNoewY6C25vdGljZVQ6DEBjbG9zZWRGOg1AZmxhc2hlc3sHOwpJIhxTaWduZWQgaW4gc3VjY2Vzc2Z1bGx5LgY7AFQ6CmFsZXJ0SSIfWW91IGFyZSBhbHJlYWR5IHNpZ25lZCBpbi4GOwBUOglAbm93MA%3D%3D--0c95f2ed9c26e106bc0cf48d405e33e8288ba739"
+</code></pre>
+
+<h1>Running Ab</h1>
+
+<p>With that, we&#8217;re finally ready to run apache bench:</p>
+
+<pre><code>  TRIALS=1000
+  CONCURRENCY=100
+  ab -n $TRIALS -c $CONCURRENCY -C $COOKIE $INTERNAL_PAGE
+</code></pre>
 </div>
 
 
@@ -207,8 +234,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://leknarf.net/blog/2013/03/13/find-out-when-to-post-on-hacker-news/';
-        var disqus_url = 'http://leknarf.net/blog/2013/03/13/find-out-when-to-post-on-hacker-news/';
+        var disqus_identifier = 'http://leknarf.net/blog/2013/08/30/load-testing-a-rails-app-with-apache-bench/';
+        var disqus_url = 'http://leknarf.net/blog/2013/08/30/load-testing-a-rails-app-with-apache-bench/';
         var disqus_script = 'embed.js';
       
     (function () {
