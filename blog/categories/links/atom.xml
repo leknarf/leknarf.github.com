@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: links | Leknarf]]></title>
+  <link href="http://leknarf.net/blog/categories/links/atom.xml" rel="self"/>
+  <link href="http://leknarf.net/"/>
+  <updated>2013-10-20T11:52:41-04:00</updated>
+  <id>http://leknarf.net/</id>
+  <author>
+    <name><![CDATA[Andrew Frankel]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Link roundup for October 20th]]></title>
+    <link href="http://leknarf.net/blog/2013/10/20/link-roundup-for-october-20th/"/>
+    <updated>2013-10-20T12:00:00-04:00</updated>
+    <id>http://leknarf.net/blog/2013/10/20/link-roundup-for-october-20th</id>
+    <content type="html"><![CDATA[<p>Links from last week you may have missed:</p>
+
+<p><a href="http://www.reuters.com/article/2013/10/13/us-siliconvalley-engineers-twitter-idUKBRE99C03R20131013">Twitter pays engineer $10 million as Silicon Valley tussles for talent</a></p>
+
+<p><a href="http://www.avc.com/a_vc/2013/10/tech-ops-as-a-metaphor-for-building-running-leading-a-company.html">Tech Ops As A Metaphor For Building, Running, &amp; Leading A Company</a></p>
+
+<p><a href="http://founderdating.com/your-career-is-a-mess/">Your career is a mess</a></p>
+
+<p><a href="http://venturebeat.com/2013/10/15/why-your-tech-startup-cant-hire-engineers-and-how-to-fix-it/">Why your tech startup can't hire engineers (and how to fix it)</a></p>
+
+<p><a href="http://www.techendo.co/posts/are-dev-bootcamps-a-scam-a-hacker-s-perspective">Are Dev Bootcamps a scam? A Hacker's perspective</a></p>
+
+<p><a href="http://www.nicholasreese.com/problem-clients/?utm_source=getresponse&amp;utm_medium=email&amp;utm_campaign=downloads&amp;utm_content=How+to+Avoid+Problem+Clients">How to Avoid Problem Clients</a></p>
+
+<p><a href="http://groovehq.com/blog/first-year">7 Lessons We Learned Going from Zero to $30k/Month in Under a Year</a></p>
+]]></content>
+  </entry>
+  
+</feed>
